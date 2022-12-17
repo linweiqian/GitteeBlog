@@ -1,0 +1,489 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/logo@2x.jpg?v=2.8.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/logo@2x.jpg?v=2.8.0" type="image/png" sizes="32x32"><meta name="description" content="TypeScript 类型支持       vue2.x使用的是Flow来进行开发,但是flow对于一些复杂的场景flow支持的不是很好。 vue3.x中vue全面转向typescript，typescript提供了更好的类型检查，也支持复杂的类型推导。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入了解vue2向vue3变迁过渡的知识点">
+<meta property="og:url" content="https://lin-xiuer.gitee.io/2022/12/16/%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3vue2%E5%90%91vue3%E5%8F%98%E8%BF%81%E8%BF%87%E6%B8%A1%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9/index.html">
+<meta property="og:site_name" content="前端嚣张农民">
+<meta property="og:description" content="TypeScript 类型支持       vue2.x使用的是Flow来进行开发,但是flow对于一些复杂的场景flow支持的不是很好。 vue3.x中vue全面转向typescript，typescript提供了更好的类型检查，也支持复杂的类型推导。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-12-16T09:24:20.319Z">
+<meta property="article:modified_time" content="2022-12-16T09:25:11.396Z">
+<meta property="article:author" content="前端嚣张农民">
+<meta property="article:tag" content="vue3">
+<meta name="twitter:card" content="summary"><title>深入了解vue2向vue3变迁过渡的知识点 | 前端嚣张农民</title><link ref="canonical" href="https://lin-xiuer.gitee.io/2022/12/16/%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3vue2%E5%90%91vue3%E5%8F%98%E8%BF%81%E8%BF%87%E6%B8%A1%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.8.0"><link rel="stylesheet" href="css/custom.css"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: true,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/about/"><span class="header-nav-menu-item__icon"><i class="fas fa-address-card"></i></span><span class="header-nav-menu-item__text">关于</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/more/"><span class="header-nav-menu-item__icon"><i class="fas fa-caret-down"></i></span><span class="header-nav-menu-item__text">更多</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">前端嚣张农民Blog</div><div class="header-banner-info__subtitle">记录日常生活和学习笔记</div></div><div class="header-banner-arrow"><div class="header-banner-arrow__icon"><i class="fas fa-angle-down"></i></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">深入了解vue2向vue3变迁过渡的知识点</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-12-16</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-12-16</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.8k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">13分</span></span></div></header><div class="post-body">
+        <h2 id="TypeScript-类型支持"   >
+          <a href="#TypeScript-类型支持" class="heading-link"><i class="fas fa-link"></i></a><a href="#TypeScript-类型支持" class="headerlink" title="TypeScript 类型支持"></a>TypeScript 类型支持</h2>
+      <p>vue2.x使用的是Flow来进行开发,但是flow对于一些复杂的场景flow支持的不是很好。</p>
+<p>vue3.x中vue全面转向typescript，typescript提供了更好的类型检查，也支持复杂的类型推导。</p>
+<span id="more"></span>
+
+        <h2 id="vue3移除vue2的实例方法或修饰符"   >
+          <a href="#vue3移除vue2的实例方法或修饰符" class="heading-link"><i class="fas fa-link"></i></a><a href="#vue3移除vue2的实例方法或修饰符" class="headerlink" title="vue3移除vue2的实例方法或修饰符"></a>vue3移除vue2的实例方法或修饰符</h2>
+      <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- $children已经被移除。如果要访问子组件，可以使用 $refs</span><br><span class="line">- $on、 $off、 $once 实例方法被移除</span><br><span class="line">- vue3对`filter`过滤器过滤器移除,建议议用方法调用或计算属性来替换它们</span><br><span class="line">- vue3 移除了 $listeners，封装进了 $attrs中</span><br><span class="line">- 移除了v-on.native 修饰符，触发可用emits对象暴露</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="watch监听数组"   >
+          <a href="#watch监听数组" class="heading-link"><i class="fas fa-link"></i></a><a href="#watch监听数组" class="headerlink" title="watch监听数组"></a>watch监听数组</h2>
+      <p>vue3当中，如果想要监听数组内容的变化那么必须要写deep。</p>
+
+        <h2 id="v-if和v-for优先级已更改"   >
+          <a href="#v-if和v-for优先级已更改" class="heading-link"><i class="fas fa-link"></i></a><a href="#v-if和v-for优先级已更改" class="headerlink" title="v-if和v-for优先级已更改"></a>v-if和v-for优先级已更改</h2>
+      <p>vue2在同一元素<code>v-for</code>优先级高于<code>v-if</code>,vue3则相反，仍不建议在同一标签同时使用</p>
+
+        <h2 id="性能优化"   >
+          <a href="#性能优化" class="heading-link"><i class="fas fa-link"></i></a><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2>
+      <ul>
+<li>源码体积优化：移除冷门api、引入tree-shaking实行按需编译</li>
+<li>数据劫持优化 proxy</li>
+<li>编译优化：diff 算法优化</li>
+<li>编译优化：PatchFlag(静态标记)、hoistStatic(静态提升)与渲染复用</li>
+<li>cacheHandler 事件监听缓存</li>
+<li>编译优化：Fragment</li>
+<li>SSR 服务端渲染</li>
+<li>StaticNode(静态节点)</li>
+<li>slot 编译优化</li>
+</ul>
+
+        <h2 id="生命周期的对比"   >
+          <a href="#生命周期的对比" class="heading-link"><i class="fas fa-link"></i></a><a href="#生命周期的对比" class="headerlink" title="生命周期的对比"></a>生命周期的对比</h2>
+      <p><code>beforeCreate</code> -&gt; setup()</p>
+<p><code>created</code> -&gt; setup()</p>
+<p><code>beforeDestroy</code> -&gt; <code>beforeUnmount</code></p>
+<p><code>destroyed</code> -&gt; <code>unmounted</code></p>
+
+        <h2 id="创建VUE实例的对比"   >
+          <a href="#创建VUE实例的对比" class="heading-link"><i class="fas fa-link"></i></a><a href="#创建VUE实例的对比" class="headerlink" title="创建VUE实例的对比"></a>创建VUE实例的对比</h2>
+      
+        <h3 id="vue2创建"   >
+          <a href="#vue2创建" class="heading-link"><i class="fas fa-link"></i></a><a href="#vue2创建" class="headerlink" title="vue2创建"></a>vue2创建</h3>
+      <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &#x27;vue&#x27;</span><br><span class="line">import App from &#x27;./App.vue&#x27;</span><br><span class="line">import router from &#x27;./router&#x27;</span><br><span class="line">import store from &#x27;./store&#x27;</span><br><span class="line">Vue(&#123;</span><br><span class="line">  router,</span><br><span class="line">  store,</span><br><span class="line">  render: h =&gt; h(App)</span><br><span class="line">&#125;).$mount(&#x27;#app&#x27;)</span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="vue3创建"   >
+          <a href="#vue3创建" class="heading-link"><i class="fas fa-link"></i></a><a href="#vue3创建" class="headerlink" title="vue3创建"></a>vue3创建</h3>
+      <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import &#123; createApp &#125; from &#x27;vue&#x27;</span><br><span class="line">import App from &#x27;./App.vue&#x27;</span><br><span class="line">import router from &#x27;./router&#x27;</span><br><span class="line">import store from &#x27;./store&#x27;</span><br><span class="line">createApp(App,&#123; userName: &quot;sara&quot; &#125;)</span><br><span class="line">.use(store)</span><br><span class="line">.use(router)</span><br><span class="line">.mount(&#x27;#app&#x27;)  </span><br><span class="line">// createApp 方法返回应用实例本身，因此可以在其后链式调用其它方法</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="指令的变化"   >
+          <a href="#指令的变化" class="heading-link"><i class="fas fa-link"></i></a><a href="#指令的变化" class="headerlink" title="指令的变化"></a>指令的变化</h2>
+      
+        <h3 id="vue2-x"   >
+          <a href="#vue2-x" class="heading-link"><i class="fas fa-link"></i></a><a href="#vue2-x" class="headerlink" title="vue2.x"></a>vue2.x</h3>
+      <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 注册一个全局自定义指令 `v-focus`</span><br><span class="line">Vue.directive(&#x27;focus&#x27;, &#123;</span><br><span class="line">  // 当被绑定的元素插入到 DOM 中</span><br><span class="line">  inserted: function (el) &#123;</span><br><span class="line">    // 聚焦元素</span><br><span class="line">    el.focus()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="vue3-x"   >
+          <a href="#vue3-x" class="heading-link"><i class="fas fa-link"></i></a><a href="#vue3-x" class="headerlink" title="vue3.x"></a>vue3.x</h3>
+      <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const &#123; createApp &#125; from &quot;vue&quot;</span><br><span class="line">const app = createApp(&#123;&#125;)</span><br><span class="line">app.directive(&#x27;focus&#x27;, &#123;</span><br><span class="line">    mounted(el) &#123;</span><br><span class="line">        el.focus()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></div></figure>
+
+
+        <h2 id="Hooks"   >
+          <a href="#Hooks" class="heading-link"><i class="fas fa-link"></i></a><a href="#Hooks" class="headerlink" title="Hooks"></a>Hooks</h2>
+      <p>vue2使用的<code>mixin</code>,<br>vue3提供了一种新的东西 ，叫做<code>vue-hooks</code></p>
+
+        <h2 id="响应式数据"   >
+          <a href="#响应式数据" class="heading-link"><i class="fas fa-link"></i></a><a href="#响应式数据" class="headerlink" title="响应式数据"></a>响应式数据</h2>
+      <p>在vue2中，实现数据监听使用的是<code>Object.defineProperty</code>。我们使用$set。<br>vue3使用的是<code>Proxy</code></p>
+
+        <h2 id="v-model-升级"   >
+          <a href="#v-model-升级" class="heading-link"><i class="fas fa-link"></i></a><a href="#v-model-升级" class="headerlink" title="v-model 升级"></a>v-model 升级</h2>
+      <blockquote>
+<ul>
+<li>变更：在自定义组件上使用<code>v-model</code>时， 属性以及事件的默认名称变了</li>
+<li>变更：<code>v-bind</code>的<code>.sync</code>修饰符在 Vue 3 中又被去掉了, 合并到了<code>v-model</code>里</li>
+<li>新增：同一组件可以同时设置多个 <code>v-model</code></li>
+<li>新增：开发者可以自定义 <code>v-model</code>修饰符</li>
+</ul>
+</blockquote>
+
+        <h2 id="在-prop-的默认函数中访问this"   >
+          <a href="#在-prop-的默认函数中访问this" class="heading-link"><i class="fas fa-link"></i></a><a href="#在-prop-的默认函数中访问this" class="headerlink" title="在 prop 的默认函数中访问this"></a>在 prop 的默认函数中访问this</h2>
+      <blockquote>
+<p>生成 prop 默认值的工厂函数不再能访问 this。<br>取而代之的是：</p>
+<ul>
+<li>组件接收到的原始 prop 将作为参数传递给默认函数；</li>
+<li>inject API 可以在默认函数中使用。</li>
+</ul>
+</blockquote>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import &#123; inject &#125; from &#x27;vue&#x27;</span><br><span class="line">export default &#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    theme: &#123;</span><br><span class="line">      default (props) &#123;</span><br><span class="line">        // `props` 是传递给组件的、</span><br><span class="line">        // 在任何类型/默认强制转换之前的原始值，</span><br><span class="line">        // 也可以使用 `inject` 来访问注入的 property</span><br><span class="line">        return inject(&#x27;theme&#x27;, &#x27;default-theme&#x27;)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="插槽统一"   >
+          <a href="#插槽统一" class="heading-link"><i class="fas fa-link"></i></a><a href="#插槽统一" class="headerlink" title="插槽统一"></a>插槽统一</h2>
+      <blockquote>
+<p>此更改统一了 3.x 中的普通插槽和作用域插槽。<br>以下是变化的变更总结：</p>
+<ul>
+<li>this.$slots 现在将插槽作为函数公开</li>
+<li>非兼容：移除 this.$scopedSlots</li>
+</ul>
+</blockquote>
+
+        <h3 id="vue2-x-1"   >
+          <a href="#vue2-x-1" class="heading-link"><i class="fas fa-link"></i></a><a href="#vue2-x-1" class="headerlink" title="vue2.x"></a>vue2.x</h3>
+      <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 当使用渲染函数，即 h 时，2.x 曾经在内容节点上定义 slot 数据 property。 --&gt;</span><br><span class="line">// 2.x 语法</span><br><span class="line"></span><br><span class="line">h(LayoutComponent, [</span><br><span class="line">  h(&#x27;div&#x27;, &#123; slot: &#x27;header&#x27; &#125;, this.header),</span><br><span class="line">  h(&#x27;div&#x27;, &#123; slot: &#x27;content&#x27; &#125;, this.content)</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">&lt;!-- 此外，可以使用以下语法引用作用域插槽： --&gt;</span><br><span class="line">// 2.x 语法</span><br><span class="line"></span><br><span class="line">this.$scopedSlots.header</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="vue3-x-1"   >
+          <a href="#vue3-x-1" class="heading-link"><i class="fas fa-link"></i></a><a href="#vue3-x-1" class="headerlink" title="vue3.x"></a>vue3.x</h3>
+      <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 在 3.x 中，插槽以对象的形式定义为当前节点的子节点： --&gt;</span><br><span class="line">// 3.x Syntax</span><br><span class="line"></span><br><span class="line">h(LayoutComponent, &#123;&#125;, &#123;</span><br><span class="line">  header: () =&gt; h(&#x27;div&#x27;, this.header),</span><br><span class="line">  content: () =&gt; h(&#x27;div&#x27;, this.content)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">&lt;!-- 当你需要以编程方式引用作用域插槽时，它们现在被统一到 $slots 选项中了。 --&gt;</span><br><span class="line">// 2.x 语法</span><br><span class="line"></span><br><span class="line">this.$scopedSlots.header</span><br><span class="line"></span><br><span class="line">// 3.x 语法</span><br><span class="line"></span><br><span class="line">this.$slots.header()</span><br></pre></td></tr></table></div></figure>
+
+
+
+        <h2 id="过渡的class名更改"   >
+          <a href="#过渡的class名更改" class="heading-link"><i class="fas fa-link"></i></a><a href="#过渡的class名更改" class="headerlink" title="过渡的class名更改"></a>过渡的class名更改</h2>
+      <blockquote>
+<p>过渡类名 v-enter 修改为 v-enter-from、过渡类名 v-leave 修改为 v-leave-from。</p>
+</blockquote>
+
+        <h3 id="vue2-x-2"   >
+          <a href="#vue2-x-2" class="heading-link"><i class="fas fa-link"></i></a><a href="#vue2-x-2" class="headerlink" title="vue2.x"></a>vue2.x</h3>
+      <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 在 v2.1.8 版本之前，每个过渡方向都有两个过渡类：初始状态与激活状态。 --&gt;</span><br><span class="line">&lt;!-- 在 v2.1.8 版本中，引入了 v-enter-to 来定义 enter 或 leave 变换之间的过渡动画插帧。然而，为了向下兼容，并没有变动 v-enter 类名： --&gt;</span><br><span class="line"></span><br><span class="line">.v-enter,</span><br><span class="line">.v-leave-to &#123;</span><br><span class="line">  opacity: 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.v-leave,</span><br><span class="line">.v-enter-to &#123;</span><br><span class="line">  opacity: 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;!-- 这样做会带来很多困惑，类似 enter 和 leave 含义过于宽泛，并且没有遵循类名钩子的命名约定。 --&gt;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="vue3-x-2"   >
+          <a href="#vue3-x-2" class="heading-link"><i class="fas fa-link"></i></a><a href="#vue3-x-2" class="headerlink" title="vue3.x"></a>vue3.x</h3>
+      <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 为了更加明确易读，我们现在将这些初始状态重命名为： --&gt;</span><br><span class="line"></span><br><span class="line">.v-enter-from,</span><br><span class="line">.v-leave-to &#123;</span><br><span class="line">  opacity: 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.v-leave-from,</span><br><span class="line">.v-enter-to &#123;</span><br><span class="line">  opacity: 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;!-- 现在，这些状态之间的区别就清晰多了。 --&gt;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h2 id="Transition-作为根节点"   >
+          <a href="#Transition-作为根节点" class="heading-link"><i class="fas fa-link"></i></a><a href="#Transition-作为根节点" class="headerlink" title="Transition 作为根节点"></a>Transition 作为根节点</h2>
+      <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">当使用 &lt;transition&gt; 作为根结点的组件从外部被切换时将不再触发过渡效果</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="vue2-x-3"   >
+          <a href="#vue2-x-3" class="heading-link"><i class="fas fa-link"></i></a><a href="#vue2-x-3" class="headerlink" title="vue2.x"></a>vue2.x</h3>
+      <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 在 Vue 2 中，通过使用 &lt;transition&gt; 作为一个组件的根节点，过渡效果存在从组件外部触发的可能性： --&gt;</span><br><span class="line">&lt;!-- 模态组件 --&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;transition&gt;</span><br><span class="line">    &lt;div class=&quot;modal&quot;&gt;&lt;slot/&gt;&lt;/div&gt;</span><br><span class="line">  &lt;/transition&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;!-- 用法 --&gt;</span><br><span class="line">&lt;modal v-if=&quot;showModal&quot;&gt;hello&lt;/modal&gt;</span><br><span class="line">&lt;!-- 切换 showModal 的值将会在模态组件内部触发一个过渡效果。</span><br><span class="line">这是无意为之的，并不是设计效果。一个 &lt;transition&gt; 原本是希望被其子元素触发的，而不是 &lt;transition&gt; 自身。</span><br><span class="line">这个怪异的现象现在被移除了。 --&gt;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="vue3-x-3"   >
+          <a href="#vue3-x-3" class="heading-link"><i class="fas fa-link"></i></a><a href="#vue3-x-3" class="headerlink" title="vue3.x"></a>vue3.x</h3>
+      <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 换做向组件传递一个 prop 就可以达到类似的效果： --&gt;</span><br><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;transition&gt;</span><br><span class="line">    &lt;div v-if=&quot;show&quot; class=&quot;modal&quot;&gt;&lt;slot/&gt;&lt;/div&gt;</span><br><span class="line">  &lt;/transition&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  props: [&#x27;show&#x27;]</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;!-- 用法 --&gt;</span><br><span class="line">&lt;modal :show=&quot;showModal&quot;&gt;hello&lt;/modal&gt;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="Transition-Group-根元素"   >
+          <a href="#Transition-Group-根元素" class="heading-link"><i class="fas fa-link"></i></a><a href="#Transition-Group-根元素" class="headerlink" title="Transition Group 根元素"></a>Transition Group 根元素</h2>
+      <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;transition-group&gt; 不再默认渲染根元素，但仍然可以用 tag attribute 创建根元素</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="vue2-x-4"   >
+          <a href="#vue2-x-4" class="heading-link"><i class="fas fa-link"></i></a><a href="#vue2-x-4" class="headerlink" title="vue2.x"></a>vue2.x</h3>
+      <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 默认情况下，传递给带有 v-on 的组件的事件监听器只能通过 this.$emit 触发。要将原生 DOM 监听器添加到子组件的根元素中，可以使用 .native 修饰符： --&gt;</span><br><span class="line"></span><br><span class="line">&lt;my-component</span><br><span class="line">  v-on:close=&quot;handleComponentEvent&quot;</span><br><span class="line">  v-on:click.native=&quot;handleNativeClickEvent&quot;</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="vue3-x-4"   >
+          <a href="#vue3-x-4" class="heading-link"><i class="fas fa-link"></i></a><a href="#vue3-x-4" class="headerlink" title="vue3.x"></a>vue3.x</h3>
+      <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- v-on 的 .native 修饰符已被移除。同时，新增的 emits 选项允许子组件定义真正会被触发的事件。 --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 因此，对于子组件中未被定义为组件触发的所有事件监听器，Vue 现在将把它们作为原生事件监听器添加到子组件的根元素中 (除非在子组件的选项中设置了 inheritAttrs: false)。 --&gt;</span><br><span class="line"></span><br><span class="line">&lt;my-component</span><br><span class="line">  v-on:close=&quot;handleComponentEvent&quot;</span><br><span class="line">  v-on:click=&quot;handleNativeClickEvent&quot;</span><br><span class="line">/&gt;</span><br><span class="line"></span><br><span class="line">// MyComponent.vue</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">  export default &#123;</span><br><span class="line">    emits: [&#x27;close&#x27;]</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></div></figure>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://lin-xiuer.gitee.io">前端嚣张农民</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://lin-xiuer.gitee.io/2022/12/16/%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3vue2%E5%90%91vue3%E5%8F%98%E8%BF%81%E8%BF%87%E6%B8%A1%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9/">https://lin-xiuer.gitee.io/2022/12/16/%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3vue2%E5%90%91vue3%E5%8F%98%E8%BF%81%E8%BF%87%E6%B8%A1%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.zh-cn" rel="external nofollow" target="_blank">BY-NC</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://lin-xiuer.gitee.io/tags/vue3/">vue3</a></span></div><div class="post-reward reward"><div class="reward-button">请我喝杯咖啡~</div><div class="reward-qrcode"><span class="reward-qrcode-alipay"><img class="reward-qrcode-alipay__img" src="/images/zfbpay.png"><div class="reward-qrcode-alipay__text">支付宝打赏</div></span><span class="reward-qrcode-wechat"><img class="reward-qrcode-wechat__img" src="/images/vxpay.png"><div class="reward-qrcode-wechat__text">微信打赏</div></span></div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2022/12/16/vue%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AEcreate-vite-app%20projectName%EF%BC%8C%E6%8F%90%E7%A4%BA%E9%94%99%E8%AF%AF%EF%BC%9Acreate-vite-app%20_%20%E6%97%A0%E6%B3%95%E5%8A%A0%E8%BD%BD%E6%96%87%E4%BB%B6%20(1)/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">vue无法创建项目create-vite-app projectName，提示错误：create-vite-app _ 无法加载文件 (1)</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2022/12/16/%E7%AE%80%E5%8D%95%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AAvue3%E9%A1%B9%E7%9B%AE/"><span class="paginator-prev__text">简单搭建一个vue3项目</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#TypeScript-%E7%B1%BB%E5%9E%8B%E6%94%AF%E6%8C%81"><span class="toc-number">1.</span> <span class="toc-text">
+          TypeScript 类型支持</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vue3%E7%A7%BB%E9%99%A4vue2%E7%9A%84%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95%E6%88%96%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-number">2.</span> <span class="toc-text">
+          vue3移除vue2的实例方法或修饰符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#watch%E7%9B%91%E5%90%AC%E6%95%B0%E7%BB%84"><span class="toc-number">3.</span> <span class="toc-text">
+          watch监听数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#v-if%E5%92%8Cv-for%E4%BC%98%E5%85%88%E7%BA%A7%E5%B7%B2%E6%9B%B4%E6%94%B9"><span class="toc-number">4.</span> <span class="toc-text">
+          v-if和v-for优先级已更改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="toc-number">5.</span> <span class="toc-text">
+          性能优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="toc-number">6.</span> <span class="toc-text">
+          生命周期的对比</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BAVUE%E5%AE%9E%E4%BE%8B%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="toc-number">7.</span> <span class="toc-text">
+          创建VUE实例的对比</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#vue2%E5%88%9B%E5%BB%BA"><span class="toc-number">7.1.</span> <span class="toc-text">
+          vue2创建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vue3%E5%88%9B%E5%BB%BA"><span class="toc-number">7.2.</span> <span class="toc-text">
+          vue3创建</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E7%9A%84%E5%8F%98%E5%8C%96"><span class="toc-number">8.</span> <span class="toc-text">
+          指令的变化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#vue2-x"><span class="toc-number">8.1.</span> <span class="toc-text">
+          vue2.x</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vue3-x"><span class="toc-number">8.2.</span> <span class="toc-text">
+          vue3.x</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hooks"><span class="toc-number">9.</span> <span class="toc-text">
+          Hooks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E5%BC%8F%E6%95%B0%E6%8D%AE"><span class="toc-number">10.</span> <span class="toc-text">
+          响应式数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#v-model-%E5%8D%87%E7%BA%A7"><span class="toc-number">11.</span> <span class="toc-text">
+          v-model 升级</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8-prop-%E7%9A%84%E9%BB%98%E8%AE%A4%E5%87%BD%E6%95%B0%E4%B8%AD%E8%AE%BF%E9%97%AEthis"><span class="toc-number">12.</span> <span class="toc-text">
+          在 prop 的默认函数中访问this</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%92%E6%A7%BD%E7%BB%9F%E4%B8%80"><span class="toc-number">13.</span> <span class="toc-text">
+          插槽统一</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#vue2-x-1"><span class="toc-number">13.1.</span> <span class="toc-text">
+          vue2.x</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vue3-x-1"><span class="toc-number">13.2.</span> <span class="toc-text">
+          vue3.x</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%87%E6%B8%A1%E7%9A%84class%E5%90%8D%E6%9B%B4%E6%94%B9"><span class="toc-number">14.</span> <span class="toc-text">
+          过渡的class名更改</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#vue2-x-2"><span class="toc-number">14.1.</span> <span class="toc-text">
+          vue2.x</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vue3-x-2"><span class="toc-number">14.2.</span> <span class="toc-text">
+          vue3.x</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Transition-%E4%BD%9C%E4%B8%BA%E6%A0%B9%E8%8A%82%E7%82%B9"><span class="toc-number">15.</span> <span class="toc-text">
+          Transition 作为根节点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#vue2-x-3"><span class="toc-number">15.1.</span> <span class="toc-text">
+          vue2.x</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vue3-x-3"><span class="toc-number">15.2.</span> <span class="toc-text">
+          vue3.x</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Transition-Group-%E6%A0%B9%E5%85%83%E7%B4%A0"><span class="toc-number">16.</span> <span class="toc-text">
+          Transition Group 根元素</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#vue2-x-4"><span class="toc-number">16.1.</span> <span class="toc-text">
+          vue2.x</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vue3-x-4"><span class="toc-number">16.2.</span> <span class="toc-text">
+          vue3.x</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/logo@2x.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">公众号：前端嚣张农民</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/linweiqian" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/weixin_40808668?spm=1000.2115.3001.5343" target="_blank" rel="noopener" data-popover="CSDN" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">C</span></a><a class="sidebar-ov-social-item" href="https://juejin.cn/user/3131035352311646" target="_blank" rel="noopener" data-popover="掘金" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">掘</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/rrskeo" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">32</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">13</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">15</div><div class="sidebar-ov-state-item__name">标签</div></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>前端嚣张农民</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="0,0,0" opacity="0.6" count="99" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="/js/utils.js?v=2.8.0"></script><script src="/js/stun-boot.js?v=2.8.0"></script><script src="/js/scroll.js?v=2.8.0"></script><script src="/js/header.js?v=2.8.0"></script><script src="/js/sidebar.js?v=2.8.0"></script><script type="application/json" src="/search.json"></script></body></html>

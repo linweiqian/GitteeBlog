@@ -1,0 +1,854 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/logo@2x.jpg?v=2.8.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/logo@2x.jpg?v=2.8.0" type="image/png" sizes="32x32"><meta name="description" content="TCP和UDP的区别tcp是传输控制协议，基于连接协议，给连接对方提供可靠的传输，一个tcp传输需要经过三次握手四次挥手才能建立会话；优点：传输安全，不易丢包缺点：传输效率低udp是用户传输协议，不建立连接，不需要建立会话，直接发送数据，不可靠传输数据；优点：传输效率高缺点：易丢包，传输不安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端基础面试题">
+<meta property="og:url" content="https://lin-xiuer.gitee.io/2022/12/16/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98/index.html">
+<meta property="og:site_name" content="前端嚣张农民">
+<meta property="og:description" content="TCP和UDP的区别tcp是传输控制协议，基于连接协议，给连接对方提供可靠的传输，一个tcp传输需要经过三次握手四次挥手才能建立会话；优点：传输安全，不易丢包缺点：传输效率低udp是用户传输协议，不建立连接，不需要建立会话，直接发送数据，不可靠传输数据；优点：传输效率高缺点：易丢包，传输不安全">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-12-16T09:39:56.379Z">
+<meta property="article:modified_time" content="2022-12-16T09:46:59.893Z">
+<meta property="article:author" content="前端嚣张农民">
+<meta property="article:tag" content="前端面试">
+<meta property="article:tag" content="八股文">
+<meta name="twitter:card" content="summary"><title>前端基础面试题 | 前端嚣张农民</title><link ref="canonical" href="https://lin-xiuer.gitee.io/2022/12/16/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.8.0"><link rel="stylesheet" href="css/custom.css"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: true,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/about/"><span class="header-nav-menu-item__icon"><i class="fas fa-address-card"></i></span><span class="header-nav-menu-item__text">关于</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/more/"><span class="header-nav-menu-item__icon"><i class="fas fa-caret-down"></i></span><span class="header-nav-menu-item__text">更多</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">前端嚣张农民Blog</div><div class="header-banner-info__subtitle">记录日常生活和学习笔记</div></div><div class="header-banner-arrow"><div class="header-banner-arrow__icon"><i class="fas fa-angle-down"></i></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">前端基础面试题</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-12-16</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-12-16</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">11.2k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">64分</span></span></div></header><div class="post-body"><p><strong>TCP和UDP的区别</strong><br>tcp是传输控制协议，基于连接协议，给连接对方提供可靠的传输，一个tcp传输需要经过三次握手四次挥手才能建立会话；<br>优点：传输安全，不易丢包<br>缺点：传输效率低<br>udp是用户传输协议，不建立连接，不需要建立会话，直接发送数据，不可靠传输数据；<br>优点：传输效率高<br>缺点：易丢包，传输不安全</p>
+<hr>
+<span id="more"></span>
+<p><strong>什么是语义化标签，为什么要语义化</strong><br>什么是：旨在让标签有自己的含义。<br>为什么：<br>1),.即使在没有CSS样式的条件下，也能很好地呈现出内容结构、代码结构；<br>2).语义化HTML会使HTML结构变的清晰，有利于维护代码和添加样式；<br>3).方便其他设备解析（如屏幕阅读器、盲人阅读器、移动设备）以意义的方式来渲染网页；<br>4).提升搜索引擎优化(SEO)的效果。和搜索引擎建立良好沟通，有助于爬虫抓取更多的有效信息：<br>5).爬虫依赖于标签来确定上下文和各个关键字的权重；<br>6).便于团队开发和维护，语义化更具可读性，是下一步吧网页的重要动向，遵循W3C标准的团队都遵循这个标准，可以减少差异化。<br>7).通常语义化HTML会使代码变的更少，使页面加载更快。</p>
+<hr>
+<p><strong>清除浮动，什么时候需要清除浮动，清除浮动都有哪些方法；</strong><br>什么时候？对元素进行了浮动(float)时，我们的元素就会脱离文档流；<br>方法？方法一：添加新的元素 应用 clear：both；<br>          方法二：父级div定义 overflow: auto<br>          方法三： 据说是最高大上的方法 :after 方法</p>
+<hr>
+<p><strong>JavaScript有哪几种数据类型？</strong><br>基本数据类型<br>1).字符串’String’;2.数字Number；3布尔’Boolean‘<br>引用数据类型<br>1).数组’Array‘<br>2).对象’Object‘<br>特殊数据类型<br>1).空对象null<br>2).未定义Undefined</p>
+<hr>
+<p><strong>行内元素有哪些？块级元素有哪些？ 空(void)元素有那些？</strong><br>行内元素：a b span  img input select strong<br>块级元素：div ul li ol dl dt dd h1 p<br>空元素：<code>&lt;br&gt; &lt;hr&gt; &lt;img&gt; &lt;input&gt; &lt;link&gt; &lt;meta&gt; </code></p>
+<hr>
+<p><strong>Label的作用是什么？如何使用？</strong><br>作用：Label标签是用来定义表单控制间的关系<br>使用：当用户选择该标签时，浏览器会自动将焦点转到和标签相关的表单内容上</p>
+<hr>
+<p><strong>HTML5 为什么只需要写 <!DOCTYPE HTML>？</strong><br>告知浏览器的解析器用什么文档标准解析这个文档</p>
+<hr>
+<p><strong>一个CSS文件如果过大的话，加载会很慢，占用过大带宽，如果解决？</strong><br>1.去除空格和换行,压缩css代码;<br>2.尽量使用简写, 缩减代码;<br>3.将css文件分成多个文件  </p>
+<hr>
+<p><strong>标签的隐藏（display:none和visibility:hidden）的区别？</strong><br>display:none是彻底消失，不在文档流中占位，浏览器也不会解析该元素；<br>visibility:hidden是视觉上消失了，可以理解为透明度为0的效果，在文档流中占位，浏览器会解析该元素；</p>
+<hr>
+<p> <strong>input中disabled与readonly有何区别？</strong><br>1）、Readonly只针对input(text &#x2F; password)和textarea有效，<br>而disabled对于所有的表单元素都有效，<br>2）、但是表单元素在使用了disabled后，当我们将表单以POST或GET的方式提交的话，这个元素的值不会被传递出去，<br>而readonly会将该值传递出去（readonly接受值更改可以回传，disable接受改但不回传数据）。</p>
+<hr>
+<p> <strong>a标签的四个伪类是什么？如何排序？为什么？（link,visited,hover,active）</strong><br>为了产生预期的效果，在 CSS 定义中，a:hover 必须位于 a:link 和 a:visited 之后 !<br>为了产生预期的效果，在 CSS 定义中，a:active 必须位于 a:hover 之后！</p>
+<hr>
+<p> <strong>使用display:inline-block在IE6中不能正常显示，如何解决？</strong><br>1.如果先定义了 display:inline-block，然后再将 display 设回 inline 或 block，<br>2.直接让块元素设置为内联对象呈递，然后触发块元素的 layout</p>
+<hr>
+<p> <strong>img的alt和title有什么区别？</strong><br>1)、alt是在图片不能正常加载时候显示的提示语，<br>2)、title属性是鼠标划上去显示的内容</p>
+<hr>
+<p><strong>css样式引用和js引入的位置问题（为什么会放在头部或者底部）。</strong><br>因为页面在加载时，css加载时可以并发请求的（同页面中的图片，ie6除外），而js加载时需要等待一个js文件加载完成后才加载其他资源，为了页面的快速呈现，放置在尾部效果更好</p>
+<hr>
+<p><strong>某种效果，有两种实现方案都可以实现，</strong><br>   方案一：<img>标签；<br>   方案二：背景图，<br>   两个方案如何取舍？衡量的标准是什么?<br> 如果图像是内容的一部分或图表或人，使用img标签加上alt属性<br> 如果你想打印页面并且你想要的图像包含默认情况下使用img<br> 使用img（alt文本）图像有一个重要的语义化时</p>
+<hr>
+<p><strong>div+css与table布局的有何区别？</strong><br>1).符合W3C标准，代码结构清晰明了，结构、样式和行为分离，带来足够好的可维护性。<br>2).布局精准，网站版面布局修改简单。<br>3).加快了页面的加载速度（最重要的）。<br>4).节约站点所占的空间和站点的流量。<br>5.用只包含结构化内容的HTML代替嵌套的标签，提高另外搜索引擎对网页的搜索效率。</p>
+<hr>
+<p><strong>table的合并边框属性是什么？跨行是什么？跨列是什么？</strong><br>合并边框“cellspacing” 跨行“rowspan”跨列“colspan”</p>
+<hr>
+<p><strong>split() join()的区别在哪？</strong><br>1).join()函数获取一批字符串，然后用分隔符字符串将它们连接起来，从而返回一个字符串。<br>2).split()函数获取一个字符串，然后在分隔符处将其断开，从而返回一批字符串。</p>
+<hr>
+<p><strong>数组方法pop() push() unshift() shift()的区别在哪？</strong><br>push()是用来在数组末端添加项，shift()在移除数组的第一个项<br>pop()在数组末端移除项，unshift()在数组前端添加项。</p>
+<hr>
+<p><strong>JavaScript的事件流模型都有哪些？</strong><br>“事件冒泡”：事件开始由最具体的元素接收，然后逐级向上传播<br>“事件捕捉”：事件由顶层的dom开始向下传递，在底层最具体的元素接收<br>“事件委托”：当事件响应到需要绑定的元素上时，会通过事件冒泡机制从而触发它的外层元素的绑定事件上，然后在外层元素上去执行函数。</p>
+<hr>
+<p><strong>请按要求操作数组a：</strong><br>    i. 如何删除数组a中第2个元素（即：“B”）？<br>         a.splice(1,1)<br>    ii. 如何删除数组a中最后一个元素？<br>         a.pop()<br>    iii. 如何将“NEW”插入数组a的“B”和“C”之间？<br>         a..splice(2,0,NEW);</p>
+<hr>
+<p><strong>请你谈谈Cookie的弊端</strong><br>a. 每个特定的域名下最多生成的cookie个数有限制<br>b. 安全性问题。如果cookie被人拦截了，那人就可以取得所有的session信息。<br>c.有些状态不可能保存在客户端。<br>d. cookie存储字段小，为了兼容性，一般不能超过4K</p>
+<hr>
+<p><strong>请说出三种减少页面加载时间的方法</strong><br>a. 压缩合并Javascript、CSS代码<br>b.Javascript脚本放在文件末尾<br>c. 服务器开启gzip压缩<br>d.网址后加斜杠<br>e.减少http请求</p>
+<hr>
+<p><strong>列举IE与其他浏览器不一样的特性？</strong><br>1)IE支持currentStyle<br>2)IE使用innerText;<br>3)滤镜方面：IE：filter:alpha(opacity&#x3D; num<br>4)事件方面：attachEvent<br>5)鼠标位置：IE是event.clientX;<br>6)IE使用event.Element;<br>7)IE中消除list的原点仅需margin:0即可达到最终效果</p>
+<hr>
+<p><strong>前端页面有哪三层构成，分别是什么？作用是什么？</strong><br>1)结构层，表现层，行为层<br>2作用：<br>a. 结构层：由 HTML 或 XHTML 之类的标记语言负责创建，仅负责语义的表达。解决了页面“内容是什么”的问题。<br>b. 表示层：由CSS负责创建，解决了页面“如何显示内容”的问题。<br>c. 行为层：由脚本负责。解决了页面上“内容应该如何对事件作出反应”的问题。</p>
+<hr>
+<p><strong>函数里的this什么含义，什么情况下，怎么用。</strong><br>1）this是一个关键词，它始终指向一个对象，this像是一个指针。<br>2） 情况一：纯粹的函数调用<br>       情况二：作为对象方法的调用<br>       情况三： 作为构造函数调用</p>
+<hr>
+<p><strong>什么是闭包,闭包的特性、作用</strong><br>闭包：闭包是指有权访问另一个函数作用域中变量的函数<br>作用：1）能够读取函数内部的变量<br>           2）这些变量长期保存在内存中，不会在外部函数调用后清除<br>特性：1）函数套函数<br>           2）内部函数可以直接使用外部函数的局部变量或参数<br>           3)变量或参数不会被垃圾回收机制回收</p>
+<hr>
+<p><strong>undefined和 null 区别</strong><br>1）类型不同<br>2）转化出的值不同<br>3）含义不同：<br>undefined：表示使用var声明变量但没有初始化<br>null：是个空指针对象</p>
+<hr>
+<p>jQuery库中的 $ ()是什么?<br>就是jquery对象，$()就是jQuery()，在里面可以传参数，作用就是获取元素</p>
+<hr>
+<p>jQuery中，如何阻止事件冒泡和浏览器默认行为？<br>1）阻止冒泡用stopagation<br>2）阻止浏览器默认行为用preventDefault</p>
+<hr>
+<p><strong>怎样添加,移除,移动,复制,创建和查找节点?</strong><br>1）添加用appendChild（）<br>2）移除用removeChild（）<br>3）移动用cloneNode()<br>                removeChild()<br>                insertBefore()<br>4）复制用cloneNode()<br>5）创建用createElement(),createTextNode()<br>6）查找用getElementsByTagName()<br>                getElementsByClassName()<br>                getElementById()</p>
+<hr>
+<p><strong>什么叫优雅降级和渐进增强？</strong><br>1)优雅降级：一开始就构建完整的功能，然后再针对低版本浏览器进行兼容。<br>2)渐进增强：针对低版本浏览器构建页面，保证最基本的功能，然后在针对高级浏览器进行效果，交互等改进和追加功能达到最好的效果</p>
+<hr>
+<p><strong>Javascript中的定时器有哪些？他们的区别及用法是什么？</strong><br>1）setTimeout(),setInterval()<br>区别：setTimeout调用一次,setInterval反复调用<br>用法：都可以传入两个参数，一个函数名，另一个为毫秒数</p>
+<hr>
+<p><strong>innerHTML和outerHTML有什么区别</strong><br>1）innerHTML:<br>　　从对象的起始位置到终止位置的全部内容,不包括Html标签。<br>2）outerHTML:<br>　　除了包含innerHTML的全部内容外, 还包含对象标签本身。</p>
+<hr>
+<p><strong>浏览器的标准模式和怪异模式究竟是什么？</strong></p>
+<p>a）标准模式：是浏览器按照W3C标准解析执行代码，这样用规定的语法去渲染，就可以兼容各个浏览器，保证以正确的形式展示网页。</p>
+<p>b）怪异模式：是使用浏览器自己的方式解析执行代码，因为不同浏览器解析执行的方式不一样，所以我们称之为怪异模式。</p>
+<hr>
+<p><strong>JQuery链式写法原理</strong></p>
+<p>答：jq的链式调用是通过return this的形式来实现的。通过对象上的方法最后加上return this，把对象再返回回来，对象就可以继续调用方法，实现链式操作了。如果需要链式的处理，只需要在方法内部返回当前的这个实例对象this就可以了，因为返回当前实例的this，就又可以访问自己的原型了。</p>
+<hr>
+<p> <strong>$(document).ready() 是个什么函数？为什么要用它？</strong></p>
+<p>答：该函数会按照注册（绑定）的顺序一次执行，是事件模块中最重要的一个函数，可以极大的提高Web应用程序的响应速度，jQuery就是用(document).ready()方法来代替传统的JS的window.onload方法的</p>
+<hr>
+<p><strong>JavaScript window.onload 事件和 jQuery ready 函数有何不同？</strong></p>
+<p>答：前者除了要等待 DOM 被创建还要等到包括大型图片、音频、视频在内的所有外部资源都完全加载。如果加载图片和媒体内容花费了大量时间，用户就会感受到定义在 window.onload 事件上的代码在执行时有明显的延迟。<br>    另一方面，jQuery ready() 函数只需对 DOM 树的等待，而无需对图像或外部资源加载的等待，从而执行起来更快。使用 jQuery $(document).ready() 的另一个优势是你可以在网页里多次使用它，浏览器会按它们在 HTML 页面里出现的顺序执行它们，相反对于 onload 技术而言，只能在单一函数里使用。鉴于这个好处，用 jQuery ready() 函数比用 JavaScript window.onload 事件要更好些。</p>
+<hr>
+
+        <h2 id="this-和-this-关键字在-jQuery-中有何不同-a、this表示js的dom对象-b、-this-表示的是用jquery封装好的当前对象-可以使用jquery提供的方法访问样式"   >
+          <a href="#this-和-this-关键字在-jQuery-中有何不同-a、this表示js的dom对象-b、-this-表示的是用jquery封装好的当前对象-可以使用jquery提供的方法访问样式" class="heading-link"><i class="fas fa-link"></i></a><a href="#this-和-this-关键字在-jQuery-中有何不同-a、this表示js的dom对象-b、-this-表示的是用jquery封装好的当前对象-可以使用jquery提供的方法访问样式" class="headerlink" title=" $(this) 和 this 关键字在 jQuery 中有何不同?    a、this表示js的dom对象    b、$(this)表示的是用jquery封装好的当前对象,可以使用jquery提供的方法访问样式       
+     "></a> <strong>$(this) 和 this 关键字在 jQuery 中有何不同?</strong><br><br>    a、this表示js的dom对象<br>    b、$(this)表示的是用jquery封装好的当前对象,可以使用jquery提供的方法访问样式       
+     </h2>
+      <p><strong>px、em、rem的区别</strong></p>
+<pre><code>px: 像素px是相对于显示器屏幕分辨率而言的
+em会继承父级元素的字体大小
+rem会继承html元素的字体大小
+</code></pre>
+<hr>
+<p><strong>js页面生命周期</strong></p>
+<p>DOMContentLoaded, 浏览器完成HTML的加载, 并构建DOM树,但是css和img等外部资源尚未加载完成。注意：这里的外部资源指的是需要发送http请求获得的资源，而不是自己文件中的资源</p>
+<p>load, 浏览器加载完所有资源, 包括HTML文档, 图片, 样式等</p>
+<p>beforeunload, 用户即将离开, 用来检查用户是否保存了修改, 并询问是否真的要离开</p>
+<p>unload, 用户几乎已经离开, 但是可以启动一些操作, 比如发送统计数据</p>
+<hr>
+<p><strong>有关css属性position的属性值的描述</strong></p>
+<pre><code>static：没有定位，元素出现在正常的流中，占据文档流空间
+
+fixed：生成固定定位的元素，相对于浏览器可视窗口进行定位，不占据文档流空间
+
+relative：生成相对定位的元素，相对于元素本身正常位置进行定位，占据文档流空间
+
+absolute：生成绝对定位的元素，相对于static定位以外的第一个含有(relative, absolute, fixed, sticky)的祖先元素定位，不占据文档流空间
+
+sticky: 黏贴定位，相对于浏览器可视窗口进行定位，占据文档流空间
+</code></pre>
+<p><strong>主流浏览器、内核 、内核构成以及作用</strong><br>    IE * trident<br>    Firefox(火狐) * gecko<br>    Safari(苹果) * webkit<br>    Chrome(谷歌) * webkit * blink  (blink是webkit内核一个分支)<br>    Opera(欧朋) * presto * webkit (2013改为webkit)</p>
+<pre><code>内核构成: 
+    渲染引擎：负责渲染HTML、CSS、图片等信息，然后输出到显示器
+    js引擎: 负责解析javascript脚本，实现页面动态效果
+</code></pre>
+<hr>
+<p><strong>css具有继承属性</strong><br>     color, text-align, line-height, font-size, font-weight, font-style, font-family,<br>     white-space, text-indent, text-decoration, text-transform等等</p>
+<hr>
+<p><strong>&#x3D;&#x3D; 和 &#x3D;&#x3D;&#x3D;，null 和 undefined的区别</strong></p>
+<pre><code>==:  值相等，类型可以不同
+===: 值相等且类型相同
+
+null: 表示暂且空值，未来有值，一般用于释放引用类型数据
+undefined: 表示未定义，一般是指一个变量只是生声明而没有赋值
+</code></pre>
+<hr>
+<p><strong>css优先级分配</strong></p>
+<pre><code>含有!important的css的优先级最高
+
+在相同选择器精度情况下：
+    id选择器的优先级 &gt; class选择器大 &gt; 元素选择器
+    内联样式 &gt; 内部样式
+    内联样式 &gt; 外部样式
+</code></pre>
+<hr>
+<p><strong>HTML、XHTML、XML、HTML5区别</strong></p>
+<pre><code>HTML: 超级文本标记语言，标签对大小写不敏感
+XHTML: 严格的HTML，标签必须小写，标签必须闭合，标签必须嵌套正确
+XML: 可扩展的标记语言，标签可以自定义，比如 &lt;car&gt;&lt;/car&gt;
+HTML5: HTML4.0.1升级版
+</code></pre>
+<hr>
+<p><strong>行内元素，行内块元素，块级元素的区别以及标签嵌套规范</strong></p>
+<pre><code>行内元素: 不占满整行，不可以直接使用css设置宽度和高度，比如 a, i, span, b, strong, del, s等等
+
+行内块元素: 不占满整行，可以直接使用css设置宽度和高度，比如 button, img, input, textarea, select等等
+
+块级元素: 占满整行，可以直接使用css设置宽度和高度，比如 div, p, h1-h6, ul, ol, li, form等等
+
+标签嵌套规范
+    行内元素可以嵌套行内元素
+    块级元素可以嵌套块级元素、行内块元素、行内元素
+    p元素不能嵌套p元素，p元素不能嵌套h系列的元素，h系列的元素不能嵌套h系列的元素
+</code></pre>
+<hr>
+<p><strong>面向对象以及原型</strong></p>
+<pre><code>面向对象
+    将需求抽象成一个对象，然后对其成员进行分析
+
+面向对象三大特征
+    封装、继承、多态
+
+面向对象的第一步是创建构造函数，第二步通过构造函数创建对象实例
+
+原型：
+
+    对象的属性和方法，有可能是定义在自身，也有可能是定义在它的原型对象，由于原型本身也是对象，又有自己的原型，所以形成了一条原型链。
+
+    函数的原型是 prototype
+    对象的原型是 __proto__
+
+    对象的顶级原型为null， 即Object.prototype.__proto__ == null
+</code></pre>
+<p><strong>外边距合并</strong></p>
+<pre><code>在垂直方向，两个元素相遇，会发生外边距合并，合并时取最大外边距
+
+对于父子元素外边距合并
+    如果父级元素没有内边距和边框，此时设置子元素的外边距，该外边距会和父元素的外边距发生合并
+    解决方法：
+        父元素设置边框
+        父元素设置内边距替换子元素的外边距
+
+对于同级元素外边距合并
+    在垂直方向, 前一个元素设置margin-bottom,后一个设置margin-top, 此时两个元素会发生外边距合并
+
+    解决方法: 只设置元素最大值的外边距
+</code></pre>
+<hr>
+<p><strong>a元素和label元素的作用</strong></p>
+<pre><code>对于a元素
+    下载，跳转站外链接，跳转站内链接，回到顶部，锚点
+
+对于label元素
+    label一般配合表单控件使用
+    使用label元素包裹的表单控件，点击label任何一个范围，相当于点击表单控件
+    使用label的for属性关联表单控件的id，点击label任何一个范围，相当于点击表单控件
+</code></pre>
+<hr>
+<p><strong>判断数组六大方法</strong></p>
+<pre><code>arr.constructor === Array
+arr instanceof Array
+
+Array.isArray(arr)
+Array.prototype.isPrototypeOf(arr)
+
+Object.getPrototypeOf(arr) === Array.prototype
+Object.prototype.toString.call(arr) === &#39;[object Array]&#39;
+</code></pre>
+<hr>
+<p><strong>CSS的盒子模型</strong></p>
+<pre><code>盒子模型的组成：内容(content)、内边距(padding)、边框(border)、外边距(margin)
+
+内边距位于内容和边框之间，一般用于隔离内容，内边距可以填充背景色
+
+外边距位于盒子和盒子之间，一般用于隔离盒子，使得盒子与盒子有一定的间距
+
+边框位于内边距和外边距之间
+</code></pre>
+<hr>
+<p><strong>js数据类型</strong></p>
+<pre><code>js数据类型分为原始数据类型和引用数据类型
+
+    原始数据类型
+        number, string, boolean, null, undefined, symbol
+
+    引用数据类型
+        function, array, object
+</code></pre>
+<hr>
+<p><strong>$(function() {}) 和 window.onload区别</strong></p>
+<blockquote>
+<p>window.onload是在页面所有的元素都加载完成后才触发 $(function(){})是在页面的dom结构加载完毕后就触发<br>dom里的内容不一定都已经加载完成</p>
+</blockquote>
+<hr>
+<p><strong>内部插入节点和外部插入节点</strong></p>
+<pre><code>内部插入节点，节点关系为父子关系
+    在父节点尾部添加一个子节点
+    父节点.append(子节点)
+    子节点.appendTo(父节点)
+
+    在父节点顶部添加一个子节点
+    父节点.prepend(子节点)
+    子节点.prependTo(父节点)
+
+外部插入节点，节点关系为同胞节点
+    在节点前面添加节点
+    节点1.before(节点2);
+    节点2.insertBefore(节点1);
+
+    在节点后面添加节点
+    节点1.after(节点2);
+    节点2.insertAfter(节点1);
+</code></pre>
+<hr>
+<p><strong>&#x3D;&#x3D; 和 &#x3D;&#x3D;&#x3D;，null 和 undefined的区别</strong></p>
+<pre><code>==:  值相等，类型可以不同
+===: 值相等且类型相同
+
+null: 表示暂且空值，未来有值，一般用于释放引用类型数据
+undefined: 表示未定义，一般是指一个变量只是生声明而没有赋值
+</code></pre>
+<hr>
+<p><strong>瀑布流实现原理</strong><br>    先取第一行元素的高度为基准高度，<br>    从第二行开始，在基准高度找出最小高度值，将下一个元素放在最小高度对应的元素的下面，元素完成位置设置后，将基准高度的最小高度重置为元素高度和最小高度之和</p>
+<hr>
+<p><strong>$.extend 和 $.fn.extend的区别</strong></p>
+<pre><code>$.extend
+    如果只传递一个对象，表示在jQuery构造函数扩展属性和方法，jquery实例不能使用，只能jQuery构造函数本身使用
+
+    如果传递两个对象以上的，表示合并对象，并返回合并之后的对象
+
+    如果第一个参数为true，其他参数为对象时，则表示深度合并对象，并返回合并之后的对象
+
+$.fn.extend
+    表示在jQuery构造函数的原型prototype扩展属性和方法, jquery实例能使用, jQuery构造函数本身不能使用
+</code></pre>
+<hr>
+<p><strong>重绘和回流</strong></p>
+<pre><code>重绘
+    当页面的元素需要更新属性，新的属性对元素的外观，风格的产生影响，这个更新的过程称为重绘
+
+    比如设置元素的background，color等等，都会重绘元素
+
+回流
+    当页面的元素因为尺寸，位置、布局，隐藏等改变而需要浏览器重新构建的过程，这个重构的过程称为回流
+
+    比如设置元素的width，height，float，position等等，都会回流元素
+</code></pre>
+<hr>
+<p><strong>display: none; 和 visibility: hidden;的区别</strong></p>
+<pre><code>共同点：都是隐藏元素
+不同点: 对于display: none;隐藏的元素不会占据文档流；visibility: hidden;隐藏的元素仍会占据文档流
+</code></pre>
+<hr>
+<p><strong>浏览器的渲染页面机制</strong></p>
+<pre><code>浏览器解析HTML文档和CSS样式表构建DOM树和和CSSDOM树(没有设置节点外观样式)
+
+浏览器结合DOM树和CSSOM树构建渲染树(重绘元素)
+
+浏览器在渲染树内对每个渲染元素进行布局处理，计算出每一个元素的大小和位置(回流元素)
+
+遍历渲染树将实际的像素显示到屏幕(确认最终的回流元素样式)
+</code></pre>
+<hr>
+<p><strong>加载优化</strong></p>
+<pre><code>懒加载可视区域的数据
+
+依赖的下载路径是否可靠，不可用时候是否会阻碍整个页面
+
+脚本放在body结束标签之前执行
+
+压缩html、图片、样式表、js
+
+保证图片正常浏览时，图片分辨率要尽可能小
+
+字体图标替换图片
+
+css选择器尽量不要超过四个层级，由于css选择器越复杂，浏览器计算得越久
+
+尽量减少js对DOM操作
+</code></pre>
+<hr>
+<p><strong>bootstrap4响应式断点范围</strong></p>
+<pre><code>    超大PC xl: x &gt;= 1200px
+    pc lg: x &gt;= 992px
+    平板 md: x &gt;= 768px
+    手机或者手机横屏 sm:  x &gt;= 576px
+    超小屏幕手机: x &lt; 576
+</code></pre>
+<hr>
+<p><strong>什么是XSS攻击</strong></p>
+<p>   XSS(cross site script): 跨站脚本攻击</p>
+<p>   原理: 恶意攻击者往web页面插件恶意的HTML代码, 当用户浏览网页时, 嵌入恶意的html代码就会被执行</p>
+<p>   实现原理: 通过站内交互途径, 比如发布评论, 提交含有javascript的内容文本, 如果前端和服务器没有过滤或者没有转义这些脚本, 作为内容发布到网页上, 其他用户访问这个页面时会执行这些脚本, 从而被攻击</p>
+<p>   目的: 通过插入恶意脚本, 实现对用户浏览器的控制, 获取用户信息</p>
+<p>   <strong>怎样防止XSS攻击</strong></p>
+<pre><code>       输入过滤(长度验证, 格式验证)
+
+    输出转义(html转义编码)
+
+    将重要的cookie标记httponly, 避免XSS攻击利用javascript的document.cookie获取cookie
+    其中具有httponly标记的cookie无法获取，增强cookie的安全性
+</code></pre>
+<hr>
+<p><strong>有关css属性position的属性值的描述</strong></p>
+<pre><code>static：没有定位，元素出现在正常的流中，占据文档流空间
+
+fixed：生成固定定位的元素，相对于浏览器可视窗口进行定位，不占据文档流空间
+
+relative：生成相对定位的元素，相对于元素本身正常位置进行定位，占据文档流空间
+
+absolute：生成绝对定位的元素，相对于static定位以外的第一个含有(relative, absolute, fixed, sticky)的祖先元素定位，不占据文档流空间
+
+sticky: 黏贴定位，相对于浏览器可视窗口进行定位，占据文档流空间
+</code></pre>
+<hr>
+<p><strong>前端如何定跳页面</strong></p>
+<pre><code>利用a标签的href属性跳转页面
+
+使用location跳转页面，跳转方式有三种
+    location.href
+    location.assign()
+    localtion.replace()
+</code></pre>
+<hr>
+<p><strong>加载优化</strong></p>
+<pre><code>懒加载可视区域的数据
+
+依赖的下载路径是否可靠，不可用时候是否会阻碍整个页面
+
+脚本放在body结束标签之前执行
+
+压缩html、图片、样式表、js
+
+保证图片正常浏览时，图片分辨率要尽可能小
+
+字体图标替换图片
+
+css选择器尽量不要超过四个层级，由于css选择器越复杂，浏览器计算得越久
+
+尽量减少js对DOM操作
+</code></pre>
+<hr>
+<p><strong>目前主流浏览器</strong><br> IE   内核 ：trident<br>Firefox    内核：gecko<br>Safari (苹果)   内核：webkit<br>Opera（欧朋）   内核:webkit<br>Chrome (谷歌)   内核:webkit<br>内核构成：渲染引擎：负责渲染HTML,CSS,图片 等信息，然后输出显示器<br>js引擎：负责解析JavaScript脚本，实现页面动态效果</p>
+<hr>
+<p><strong>get请求和post请求的区别</strong><br>    get传输数据的速度快，安全性低<br>    post传输速递低，安全性高</p>
+<hr>
+<p><strong>Sass、LESS 是什么？大家为什么要使用他们？</strong><br>共同点：他们是CSS的预处理器，是CSS上的抽象层，是一种特殊语法，语言编译成CSS;<br>Less:是一种动态样式语言，将CSS设置成动态语言的属性，既可以在客户端运行，也可以在服务端运行；<br>Sass:<br>为什么使用？<br>a.结构清晰，便于扩展。<br>b.可以方便地屏蔽浏览器私有语法差异。这个不用多说，封装对浏览器语法差异的重复处理，减少无c.意义的机械劳动。<br>d.可以轻松实现多重继承。<br>e.完全兼容 CSS 代码，可以方便地应用到老项目中。LESS 只是在 CSS 语法上做了扩展，所以老的 CSS 代码也可以与 LESS 代码一同编译。</p>
+<hr>
+<p><strong>为什么要用面向对象？</strong><br>1.便于项目的维护，拓展更新<br>2.可以实现属性和方法的继承<br>3.提高网页应用程序的性能，节省内存空间</p>
+<hr>
+<p><strong>什么是对象？</strong><br>属性和方法的集合，属性和方法是对象的成员</p>
+<hr>
+<p><strong>js面向对象创建对象的几种方式：</strong><br>1.直接量定义对象<br>2.工厂模式定义对象<br>优点：解决看创建相似对象的问题，<br>缺点：不能识别对象类型<br>3.构造函数定义对象<br>优点：创建自定义函数介意将它的实例标识为一种特定的类型<br>缺点：每个方法都要重新实例一遍<br>4.原型定义对象<br>优点：可以让所有的对象实例共享它所包含的属性和方法<br>缺点：原型中的所有属性都是共享的，但是实例一般都要有自己单独属性的<br>5.混合模型</p>
+<hr>
+<p><strong>三种方式定义一个函数</strong><br>1.var fn1&#x3D; new Function(‘代码块’);&#x2F;&#x2F;调用fn1()<br>2.var fn2 &#x3D;function(){代码块}；fn2()<br>3.function fn3(){代码块}；fn3（）<br>自执行函数<br>(function(){代码块})（）<br>回调函数<br>特点：把一个函数作为实参传递到另一个函数再调用<br>function fn1(callback){<br>callback();<br>}<br>fn1(function(data){代码块})</p>
+<hr>
+<p><strong>CSS中link和@import的区别是？</strong><br>1.lin属于HTML标签，而@import是CSS提供的<br>2.link是标签没有兼容性问题，而@import需要ie5以上浏览器<br>3.页面被加载时，link标签被同时加载，而@import需要页面加载完再加载<br>4.link标签方式的权重高于@import</p>
+<hr>
+<p><strong>为什么要初始化样式？</strong><br>由于兼容问题，不同浏览器对标签的默认样式值不同，若不初始化会造成不同浏览器之间的显示差异</p>
+<hr>
+<p><strong>BFC是什么？</strong><br>独立的布局环境，其中的元素不受外界的影响，并在一个BFC中，块盒和行盒都会垂直沿其父元素的边框排列</p>
+<hr>
+<p><strong>对 WEB 标准以及 W3C 的理解与认识</strong><br>W3C可分为结构层，行为层和表现层，而WEB标准是让三者独立，让其具有模块化<br>W3C对web标准提出了规范化<br>1.对于结构：<br>a.标签要闭合<br>b.标签要小写<br>c.标签不能随意嵌套<br>2.对于表现和行为：<br>a.尽量使用外链CSS和JS，符合规范提高渲染速度<br>b.不需要变动页面内容、提供打印版本而不需要复制内容、提高网站易用性</p>
+<hr>
+<p><strong>作用域，作用域链？</strong><br>a.作用域：就是变量与函数的可访问范围。作用域分为 全局作用域(所声明的变量全局都可以访问),局部作用域(所声明的变量只在其内部可以访问)。<br>b.作用域链：当我们在一个函数内部访问当前作用域内不存在的变量时，就会逐层向外查找，如果一直找不到就会报错。当我们在局部作用域中，调用外部变量时，就产生了作用域链。</p>
+<hr>
+<p><strong>JavaScript的三种强制转化类型</strong><br>ParseInt()将一个字符串转化成一个整数<br>ParseFloat（）将一个字符串转化成一个浮点数<br>Number（）将变量转化成数值型</p>
+<hr>
+<p><strong>ajax的理解？</strong><br>ajax的原理：原理：相当于在用户和服务器之间加一个中间层（ajax引擎),使用户操作与服务器响应异步化。<br>ajax的优点：在不刷新整个页面的前提下与服务器通信维护数据。不会导致页面的重载可以把前端服务器的任务转接到客服端来处理，减轻服务器负担，节省宽带。<br>ajax的劣势：对搜索引擎的支持比较弱；不容易调试。解决办法：通过location.hash值来解决Ajax过程中导致的浏览器前进后退按键失效</p>
+<hr>
+<p><strong>列举浏览器对象模型 BOM 里常用的至少 4 个对象，并列举 window 对象的 常用方法至少5个</strong><br>对象：window document location screen history navigator<br>方法：alert() confirm() prompt() open() close() setInterval() setTimeout() clearInterval() clearTimeout()</p>
+<hr>
+<p><strong>如何阻止事件冒泡和默认事件 ：</strong><br>a.阻止冒泡事件：e. stopPropagation();&#x2F;&#x2F;标准浏览器<br>b.阻止默认事件：e.preventDefault();</p>
+<hr>
+<p><strong>javascript 的本地对象，内置对象和宿主对象</strong><br>a.本地对象：array obj regexp 等可以 new 实例化<br>b.内置对象：gload Math 等不可以实例化的<br>c.宿主对象:浏览器自带的 document,window</p>
+<hr>
+<p><strong>Sass和Less的区别</strong><br>只要区别是他们的实现方式不同LESS是基于javaScript运行,所以LESS是在客户端处理，Sass是基于Ruby的，在服务端处理的，很多开发者不选择LESS是因为LESS输出修改过的CSS浏览器需要依赖JavaScript引擎，而JavaScript引擎需要额外的时间处理代码</p>
+<hr>
+<p><strong>JQuery是什么？特点，优缺点？</strong><br>什么是jQuery：<br>1.jQuery是一个优秀的JavaScript框架<br>2.是一个轻量级的js库，简洁的js库，能使用户更方便的处理dom，event，实现动画效果，并且方便为网站提供ajax交互<br>特点：<br>1.一款轻量级的js框架<br>2.丰富的dom选择器<br>3.链式表达式<br>4.事件。样式。动画支持<br>5.ajax操作支持<br>6.跨浏览器兼容<br>7.插件扩展开发<br>8.可拓展性强<br>优点：<br>1.实现脚本与页面分离<br>2.最少代码做最多的事情<br>3.性能支持比较好<br>缺点：<br>1.不能向后兼容<br>2.插件的兼容性<br>3.使用多个插件容易发生冲突</p>
+<hr>
+<p><strong>网络七层协议：</strong><br>1.应用层<br>2.表示层<br>3.会话层<br>4.传输层<br>5.网络层<br>6.数据链路层<br>7.物理层</p>
+<hr>
+<p><strong>js的常用内置对象</strong><br>1.array数组对象<br>2.string字符串<br>3.math对象<br>4.Date日期对象</p>
+<hr>
+<p><strong>js堆栈</strong><br>含义：都是运行时内存分配的一个数据区，因此也被称为堆区和栈区<br>区别：<br>二者存储的数据类型和处理速度不同<br>1.堆用于复杂引用数据类型分配空间，存储速度慢；<br>2.栈主要用于存放基本数据类型，存储速度快；</p>
+<hr>
+<p><strong>垃圾回收机制</strong><br>1.标记清除：当变量进入执行环境时，变量标记为进入环境，当离开环境时，标记为离开环境，<br>2.引用计数：引用计数的含义是跟踪记录每个值被引用的次数，当声明一个变量并将一个引用类型赋值给该变量时，这个值的引用次数就是1，相反，如果包含对这个值引用的变量又取得另外一个值，则这个值引用次数就-1；</p>
+<hr>
+<p><strong>js由三部分组成</strong><br>ECMAscript：它是js语言的标准，规定了js的编程语法和基础核心知识<br>dom：文档对象模型，提供给js很多操作页面中元素的属性和方法<br>bom：浏览器对象模型，提供给很多操作浏览器的属性和方法，而这些方法都放在window浏览器对象下</p>
+<hr>
+<p><strong>Promise是什么</strong><br>是一种异步编程的解决方案，从语法上看，Promise是一个对象，它可以获取异步操作的消息，从本意上看他是一种承诺，承诺一段时间会给你一个结果</p>
+<hr>
+<p><strong>同步加载与异步加载？</strong><br>同步模式：<br>又称阻塞模式，会阻止浏览器的后续处理，停止后续的解析，只有当前加载完成，才能进行下一步操作。所以默认同步执行才是安全的。但这样如果js中有输出document内容、修改dom、重定向等行为，就会造成页面堵塞<br>异步加载：<br>又叫非阻塞加载，浏览器在下载执行js的同时，还会继续进行后续页面的处理</p>
+<hr>
+<p><strong>Promise的作用？</strong><br>是一个对象，用来传递异步操作的消息，提供统一的api，可供进一步处理</p>
+<hr>
+<p><strong>vuex的五个属性有哪些（状态管理模式）</strong><br>1.state：基本数据 （mapState辅助函数）<br>2.getters：从基本数据派生的数据<br>3.mutations：提交更改数据的方法<br>4.actions：像一个装饰器，包裹mutations，使之可以异步<br>5.mudules：模块化vuex</p>
+<hr>
+<p><strong>vue的虚拟dom 是什么</strong><br>是js模拟dom结构，利用虚拟dom最后的状态去操作dom</p>
+<hr>
+<p><strong>常见的八大数据结构：</strong><br>数组<br>栈<br>队列<br>链表<br>树<br>图<br>字典树（这是一种高效的树形结构，但值得单独说明）<br>散列表（哈希表）</p>
+<hr>
+<p><strong>foreach和map的区别</strong><br>foreach返回的是一个undefined<br>map返回的是一个新数组</p>
+<hr>
+<p><strong>nodejs的优缺点：</strong><br>优点：高并发<br>    适合I&#x2F;O密集型<br>缺点：不适合CPU密集型应用<br>        只支持单核CPU<br>    可靠性低<br>适合场景：RESTful API<br>   统一web应用的UI层<br>   大量的ajax请求的应用</p>
+<hr>
+<p><strong>页面导入样式时，使用link和@import有什么区别？</strong><br>1.link属于XHTML标签，除了加载css外，还能定义rel链接起作用，而@import是css提出的只能加载css<br>2.页面被加载时，link会被同时加载，而@import引用的css需要页面加载完再加载<br>3.@import需要IE5以上才能识别，而link无兼容问题</p>
+<hr>
+<p><strong>原型是什么？</strong><br>在JavaScript中原型是一个prototype对象，用于表示类型之间的关系。<br>原型链是什么？<br>在JavaScript中是通过prototype对象指向父类对象，直到指向Object对象为止，这样就形成了一个原型指向的链条，专业术语称之为原型链。</p>
+<hr>
+<p><strong>什么是虚拟DOM？</strong><br>使用js对象模拟DOM，在操作过程中不会直接操作DOM，等待虚拟DOM操作完成，仅仅比较开始和结束状态虚拟DOM有哪些变换，最终根据结束状态虚拟DOM去操作DOM。</p>
+<hr>
+<p><strong>Vue相对于jQuery在开发上有什么优点</strong><br>        a.Vue比JQuery减少了 DOM 操作<br>        b.组件化模式，开发效率高,方便维护</p>
+<hr>
+<p><strong>jsonp原理？</strong><br>使用script标签的src属性，利用get方式请求后台数据，将数据以参数的形式返回</p>
+<hr>
+<p> <strong>怎样避免全局变量污染？</strong><br>        a.尽量少使用全局变量<br>        b.使用闭包</p>
+<hr>
+<p> <strong>Vue数据双向绑定的原理及其实现</strong><br>原理是根据数据劫持和订阅者模式<br>实现过程是监听器，观察者和解析器</p>
+<hr>
+<p> <strong>MVC与MVVM的理解</strong><br>MVC<br>视图层（View）：主要是用户界面的展示<br>控制层（Controller）：主要是处理Model层和View层的交互<br>模型层（Model）：主要是对数据的CRUD操作辑的处理。</p>
+<p>MVVM<br> 视图层（View）：调用ViewModel的方法并响应变化。<br> 视图模型层（ViewModel）：主要做业务的调度者，分割了View层和Model层。<br> 模型（Model）：数据模型</p>
+<hr>
+<p><strong>GET、POST的区别？</strong><br>        a.get是从服务器上获取数据，post是向服务器传送数据。<br>        b.get传送的数据量较小，不能大于2KB。post传送的数据量较大，一般被默认为不受限制<br>        c.get安全性非常低，post安全性较高。	</p>
+<hr>
+<p><strong>socket与web socket的区别？</strong><br>        Socket是传输控制层协议，WebSocket是应用层协议。</p>
+<hr>
+<p><strong>什么是深拷贝，什么是浅拷贝</strong><br>深拷贝是两个对象在同一个内存空间，如果一个改变另一个会开辟新的内存空间，不受影响<br>浅拷贝是两个对象，如果一个改变，另一个也会发生改变</p>
+<hr>
+<p><strong>请讲述sessionStorage、localStorage、cookie的区别？</strong><br>⒈localStorage长期存储数据，浏览器关闭数据后不丢失；</p>
+<p>⒉sessionStorage数据在浏览器关闭后自动删除；</p>
+<p>⒊cookie是网站为了标识用户身份而存储在用户本地终端（Client   Side）上的数据（通常经过加密）。cookie始终在同源的http请求中携带（即使不需要）都会在浏览器和服务器端间来回传递。session  storage和local storage不会自动把数据发给服务器，仅在本地保存；</p>
+<p>⒋存储大小：cookie数据大小不会超过4K，session  storage和local storage虽然也有存储大小的限制，但比cookie大得多，可以达到5M或者更多；</p>
+<hr>
+<p><strong>如何解决浏览器兼容问题? 另外请详细讲述CSS hack。</strong><br>可以通过初始化样式<br>csshack是通过不同css 代码在不同浏览器中兼容相同效果</p>
+<hr>
+<p><strong>讲一下 prototype 是什么东西，原型链的理解，什么时候用 prototype</strong><br>prototype是js的对象由属性和方法组成<br>原型链是每个prototype对象指向父级对象，最终指向Obeject产生的原型链条</p>
+<hr>
+<p><strong>js中call(),apply(),bind()方法的区别</strong><br>call()和apply()第二个传入的参数不同，call()传入的是字符串，apply()传入的是数组<br>bind()传参方式与call()相同，只不过call()和apply()调用后会立即执行，而bind()还需要再调用才会执行</p>
+<hr>
+<p><strong>什么是事件委托，它的作用？</strong><br>就是讲子元素的事件，放在父元素去处理，他是原理是事件冒泡的实现<br>作用:减少for循环优化性能，减少内存</p>
+<hr>
+<p><strong>什么是函数防抖？</strong><br>在单位时间内函数只执行最后一次，如果多次触发，则重新计算延迟时间<br>应用场景：<br>表单提交，输入框验证，搜索框</p>
+<hr>
+<p><strong>什么是函数节流？</strong><br>在单位时间内多次触发一段时间只一次函数执行<br>应用场景:<br>dom元素的多次拖拽或滚动，抢购</p>
+<hr>
+<p><strong>什么重绘和回流？</strong><br>重绘：当页面元素样式改变，不影响元素在文档流中的位置<br>回流：当操作的改变响应文档内容或者元素在文档流中的位置发生改变<br>优化：<br>减少dom操作<br>将样式放在head标签下而脚本放在body结束后<br>简洁优化css样式</p>
+<hr>
+<p><strong>事件冒泡和事件捕获的区别？</strong><br>事件冒泡是给子元素绑定事件并触发时，父元素也会跟着触发<br>事件捕获是用addeventlistener（）绑定并触发子元素时，先触发父元素再传递给子元素</p>
+<hr>
+<p><strong>什么堆栈？它们的区别</strong></p>
+<p>堆主要存储引用数据类型，存放速度比较慢<br>栈主要存储基本数据类型，存取速度比较快 </p>
+<p>区别：<br>栈存储的是局部变量，堆存放的是实体<br>栈的存放速度比堆快<br>栈存放的变量生命周期结束就会被摄放，而堆会不定时被垃圾回收机制回收</p>
+<hr>
+<p><strong>什么是路由守卫？</strong><br>路由守卫是路由跳转时被验证，通常用于登录验证<br>传入的参数有to(到哪个页面),from(从哪个页面来),next(回调函数)</p>
+<hr>
+
+        <h2 id="请描述下你对vue框架的理解？vue是一套用于构建用户界面的渐进式框架特性：轻量级框架-双向数据绑定-插件化优点：轻量高性能组件化的MVVM库，容易上手缺点：不支持IE8-性能不如react和angular"   >
+          <a href="#请描述下你对vue框架的理解？vue是一套用于构建用户界面的渐进式框架特性：轻量级框架-双向数据绑定-插件化优点：轻量高性能组件化的MVVM库，容易上手缺点：不支持IE8-性能不如react和angular" class="heading-link"><i class="fas fa-link"></i></a><a href="#请描述下你对vue框架的理解？vue是一套用于构建用户界面的渐进式框架特性：轻量级框架-双向数据绑定-插件化优点：轻量高性能组件化的MVVM库，容易上手缺点：不支持IE8-性能不如react和angular" class="headerlink" title="请描述下你对vue框架的理解？vue是一套用于构建用户界面的渐进式框架特性：轻量级框架    双向数据绑定    插件化优点：轻量高性能组件化的MVVM库，容易上手缺点：不支持IE8   性能不如react和angular
+   
+    "></a><strong>请描述下你对vue框架的理解？</strong><br>vue是一套用于构建用户界面的渐进式框架<br>特性：轻量级框架<br>    双向数据绑定<br>    插件化<br>优点：轻量高性能组件化的MVVM库，容易上手<br>缺点：不支持IE8<br>   性能不如react和angular
+   
+    </h2>
+      <p><strong>var let const区别?</strong></p>
+<p>var的声明一般在全局作用域,会有变量提升,会造成变量污染</p>
+<p>let的声明一般在块级作用域,不存在变量提升,形成暂时性死区,不能重复声明</p>
+<p>const的声明一般在块级作用域,形成暂时性死区,不能重复赋值,原因是对简单数据类型的值保存在内存地址,而复杂的数据类型保存的是指向实际数据的内存地址</p>
+<hr>
+<p><strong>promise是什么?</strong></p>
+<p>作为异步编程操作,解决回调地狱,有三个参数,padding(进行中),fulfilled(已成功),rejected(已失败),一旦执行无法中途取消</p>
+<p>Promise.prototype.then()等待上一个promise状态改变返回新的promise实例</p>
+<p>Promise.prototype.catch()用于指定发生回调函数异步执行的错误</p>
+<p>Promise.prototype.try()用于指定发生回调函数同步执行的错误</p>
+<p>Promise.prototype.finally()不管 Promise 对象最后状态如何，都会执行的操作</p>
+<p>Promise.all()方法用于将多个 Promise 实例，包装成一个新的 Promise 实例,一个执行失败则不会继续执行</p>
+<p>Promise.race() 多个相同数据的接口哪个获取快,就先获取哪个的结果</p>
+<p>Promise.allSettled()不管每一个操作是成功还是失败，再进行下一步操作</p>
+<p>Promise.any()只要参数实例有一个变成fulfilled状态，包装实例就会变成fulfilled状态；如果所有参数实例都变成rejected状态，包装实例就会变成rejected状态。</p>
+<hr>
+<p><strong>async&#x2F;await是什么?</strong><br>promise和Generater的语法糖,await必须放在async里面<br>好处:<br>1.简介,使异步代码看起来像同步代码</p>
+<p>2.async&#x2F;await 让 try&#x2F;catch可以同时处理同步和异步的错误</p>
+<hr>
+<p><strong>箭头函数与普通函数的区别</strong></p>
+<p>1.普通函数存在变量提升的现象</p>
+<p>2.箭头函数不能作为构造函数使用,没有new对象</p>
+<p>3.两者this的指向不同,普通this指向绑定的事件,箭头函数的this指向所处环境的上下文,如果没有上下文指向最外层的对象window</p>
+<hr>
+<p><strong>Map和Set的区别?</strong></p>
+<p>1.Map保存键值对，任何值都可以作为键值的值。</p>
+<p>2.Set保存的是类数组数据，是值的集合。</p>
+<p>3.Map有get方法而Set没有get方法</p>
+<hr>
+<p><strong>原型和原型链的理解?</strong></p>
+<p>原型:每个函数都有prototype属性,该属性指向原型对象;使用原型对象的好处是所有对象实例共享它所包含的属性和方法</p>
+<p>原型链:每个对象都有个原型对象,通过_proto_指针指向原型对象,并从中继承方法和属性,同时原型对象也有原型,这样一层一层最终指向null</p>
+<p>原型的作用：</p>
+<p>1.数据共享 节约内存内存空间</p>
+<p>2.实现继承</p>
+<hr>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://lin-xiuer.gitee.io">前端嚣张农民</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://lin-xiuer.gitee.io/2022/12/16/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98/">https://lin-xiuer.gitee.io/2022/12/16/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.zh-cn" rel="external nofollow" target="_blank">BY-NC</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://lin-xiuer.gitee.io/tags/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/">前端面试</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://lin-xiuer.gitee.io/tags/%E5%85%AB%E8%82%A1%E6%96%87/">八股文</a></span></div><div class="post-reward reward"><div class="reward-button">请我喝杯咖啡~</div><div class="reward-qrcode"><span class="reward-qrcode-alipay"><img class="reward-qrcode-alipay__img" src="/images/zfbpay.png"><div class="reward-qrcode-alipay__text">支付宝打赏</div></span><span class="reward-qrcode-wechat"><img class="reward-qrcode-wechat__img" src="/images/vxpay.png"><div class="reward-qrcode-wechat__text">微信打赏</div></span></div></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2022/12/16/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E8%BF%9B%E9%98%B6/"><span class="paginator-prev__text">前端面试题进阶</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#this-%E5%92%8C-this-%E5%85%B3%E9%94%AE%E5%AD%97%E5%9C%A8-jQuery-%E4%B8%AD%E6%9C%89%E4%BD%95%E4%B8%8D%E5%90%8C-a%E3%80%81this%E8%A1%A8%E7%A4%BAjs%E7%9A%84dom%E5%AF%B9%E8%B1%A1-b%E3%80%81-this-%E8%A1%A8%E7%A4%BA%E7%9A%84%E6%98%AF%E7%94%A8jquery%E5%B0%81%E8%A3%85%E5%A5%BD%E7%9A%84%E5%BD%93%E5%89%8D%E5%AF%B9%E8%B1%A1-%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8jquery%E6%8F%90%E4%BE%9B%E7%9A%84%E6%96%B9%E6%B3%95%E8%AE%BF%E9%97%AE%E6%A0%B7%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">
+           $(this) 和 this 关键字在 jQuery 中有何不同?    a、this表示js的dom对象    b、$(this)表示的是用jquery封装好的当前对象,可以使用jquery提供的方法访问样式       
+     </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%B7%E6%8F%8F%E8%BF%B0%E4%B8%8B%E4%BD%A0%E5%AF%B9vue%E6%A1%86%E6%9E%B6%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%9Fvue%E6%98%AF%E4%B8%80%E5%A5%97%E7%94%A8%E4%BA%8E%E6%9E%84%E5%BB%BA%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%9A%84%E6%B8%90%E8%BF%9B%E5%BC%8F%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7%EF%BC%9A%E8%BD%BB%E9%87%8F%E7%BA%A7%E6%A1%86%E6%9E%B6-%E5%8F%8C%E5%90%91%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A-%E6%8F%92%E4%BB%B6%E5%8C%96%E4%BC%98%E7%82%B9%EF%BC%9A%E8%BD%BB%E9%87%8F%E9%AB%98%E6%80%A7%E8%83%BD%E7%BB%84%E4%BB%B6%E5%8C%96%E7%9A%84MVVM%E5%BA%93%EF%BC%8C%E5%AE%B9%E6%98%93%E4%B8%8A%E6%89%8B%E7%BC%BA%E7%82%B9%EF%BC%9A%E4%B8%8D%E6%94%AF%E6%8C%81IE8-%E6%80%A7%E8%83%BD%E4%B8%8D%E5%A6%82react%E5%92%8Cangular"><span class="toc-number">2.</span> <span class="toc-text">
+          请描述下你对vue框架的理解？vue是一套用于构建用户界面的渐进式框架特性：轻量级框架    双向数据绑定    插件化优点：轻量高性能组件化的MVVM库，容易上手缺点：不支持IE8   性能不如react和angular
+   
+    </span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/logo@2x.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">公众号：前端嚣张农民</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/linweiqian" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/weixin_40808668?spm=1000.2115.3001.5343" target="_blank" rel="noopener" data-popover="CSDN" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">C</span></a><a class="sidebar-ov-social-item" href="https://juejin.cn/user/3131035352311646" target="_blank" rel="noopener" data-popover="掘金" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">掘</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/rrskeo" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">32</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">13</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">15</div><div class="sidebar-ov-state-item__name">标签</div></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>前端嚣张农民</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="0,0,0" opacity="0.6" count="99" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="/js/utils.js?v=2.8.0"></script><script src="/js/stun-boot.js?v=2.8.0"></script><script src="/js/scroll.js?v=2.8.0"></script><script src="/js/header.js?v=2.8.0"></script><script src="/js/sidebar.js?v=2.8.0"></script><script type="application/json" src="/search.json"></script></body></html>

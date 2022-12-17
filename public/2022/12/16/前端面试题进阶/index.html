@@ -1,0 +1,437 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/logo@2x.jpg?v=2.8.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/logo@2x.jpg?v=2.8.0" type="image/png" sizes="32x32"><meta name="description" content="冒泡排序 1234567891011121314let arr&#x3D;[9,2,5,3,7,0]function arrSort(arr)&amp;#123;	for(var i&#x3D;0;i&lt;arr.length-1;i++)&amp;#123;		for(var j&#x3D;0;j&lt;arr.length-i-1;j++)&amp;#123;			if(arr[j]&gt;arr[j+1])&amp;#123;				var tmp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端面试题进阶">
+<meta property="og:url" content="https://lin-xiuer.gitee.io/2022/12/16/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E8%BF%9B%E9%98%B6/index.html">
+<meta property="og:site_name" content="前端嚣张农民">
+<meta property="og:description" content="冒泡排序 1234567891011121314let arr&#x3D;[9,2,5,3,7,0]function arrSort(arr)&amp;#123;	for(var i&#x3D;0;i&lt;arr.length-1;i++)&amp;#123;		for(var j&#x3D;0;j&lt;arr.length-i-1;j++)&amp;#123;			if(arr[j]&gt;arr[j+1])&amp;#123;				var tmp">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2021070609295446.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDgwODY2OA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2021070609295859.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDgwODY2OA==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2022-12-16T09:39:50.932Z">
+<meta property="article:modified_time" content="2022-12-16T12:10:27.632Z">
+<meta property="article:author" content="前端嚣张农民">
+<meta property="article:tag" content="前端面试">
+<meta property="article:tag" content="八股文">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/2021070609295446.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDgwODY2OA==,size_16,color_FFFFFF,t_70"><title>前端面试题进阶 | 前端嚣张农民</title><link ref="canonical" href="https://lin-xiuer.gitee.io/2022/12/16/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E8%BF%9B%E9%98%B6/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.8.0"><link rel="stylesheet" href="css/custom.css"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: true,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/about/"><span class="header-nav-menu-item__icon"><i class="fas fa-address-card"></i></span><span class="header-nav-menu-item__text">关于</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/more/"><span class="header-nav-menu-item__icon"><i class="fas fa-caret-down"></i></span><span class="header-nav-menu-item__text">更多</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">前端嚣张农民Blog</div><div class="header-banner-info__subtitle">记录日常生活和学习笔记</div></div><div class="header-banner-arrow"><div class="header-banner-arrow__icon"><i class="fas fa-angle-down"></i></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><div class="sticky-top" data-popover="置顶文章" data-popover-pos="up"><span class="sticky-top__icon"><i class="fas fa-thumbtack"></i></span></div><h1 class="post-title">前端面试题进阶</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-12-16</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-12-16</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">4k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">23分</span></span></div></header><div class="post-body"><p><strong>冒泡排序</strong></p>
+<figure class="highlight javascript"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr=[<span class="number">9</span>,<span class="number">2</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">7</span>,<span class="number">0</span>]</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">arrSort</span>(<span class="params">arr</span>)&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;arr.<span class="property">length</span>-<span class="number">1</span>;i++)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>;j&lt;arr.<span class="property">length</span>-i-<span class="number">1</span>;j++)&#123;</span><br><span class="line">			<span class="keyword">if</span>(arr[j]&gt;arr[j+<span class="number">1</span>])&#123;</span><br><span class="line">				<span class="keyword">var</span> tmp = arr[j];</span><br><span class="line">				arr[j] = arr[j+<span class="number">1</span>];</span><br><span class="line">				arr[j+<span class="number">1</span>] = tmp;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">arrSort</span>(arr))</span><br></pre></td></tr></table></div></figure>
+<span id="more"></span>
+
+<hr>
+<p><strong>事件冒泡</strong></p>
+<figure class="highlight javascript"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">StopProgation</span>(<span class="params">e</span>)&#123;</span><br><span class="line">	<span class="keyword">if</span>(e.<span class="property">stopPropagation</span>)&#123;</span><br><span class="line">		e.<span class="title function_">stopProgation</span>()</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		e.<span class="property">cancelBubble</span>=<span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p><strong>取消事件默认行为</strong></p>
+<figure class="highlight javascript"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">PreventDefault</span>(<span class="params">e</span>)&#123;</span><br><span class="line">	<span class="keyword">if</span>(e.<span class="property">preventDefault</span>)&#123;</span><br><span class="line">		e.<span class="title class_">PreventDefault</span>();</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		e.<span class="property">returnValue</span> =<span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<hr>
+<p><strong>sort排序</strong></p>
+<figure class="highlight javascript"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = <span class="keyword">new</span> <span class="title class_">Array</span>(<span class="number">9</span>,<span class="number">2</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">7</span>,<span class="number">0</span>);</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">arrSort</span>(<span class="params">a,b</span>)&#123;</span><br><span class="line"><span class="keyword">return</span> b-a;</span><br><span class="line">&#125;</span><br><span class="line">arr = arr.<span class="title function_">sort</span>(arrSort);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr)</span><br></pre></td></tr></table></div></figure>
+
+<hr>
+<p><strong>数组去重</strong></p>
+<figure class="highlight javascript"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">unique</span>(<span class="params">arr</span>)&#123;</span><br><span class="line"><span class="keyword">var</span> array=[];</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;arr.<span class="property">length</span>;i++)&#123;</span><br><span class="line"><span class="keyword">if</span>(array.<span class="title function_">indexOf</span>(arr[i])===-<span class="number">1</span>)&#123;</span><br><span class="line">array.<span class="title function_">push</span>(arr[i]);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> array</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> arr = [<span class="number">4</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">6</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">3</span>]</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">unique</span>(arr))</span><br></pre></td></tr></table></div></figure>
+
+<hr>
+<p><strong>说一下你对Vue组件复用机制的认识，Vuex的认识 ？</strong><br>    组件需要注册后才可以使用，注册有全局注册和局部注册两种方式。<br>    Vuex是一个专为了vue.js 应用程序开发的状态管理模式</p>
+<hr>
+<p><strong>什么是深拷贝，什么是浅拷贝，如何实现引用数据类型的深拷贝？</strong><br>    浅拷贝就是两个对象引用的是同一个的内存空间，一个改变全部改变。<br>    深拷贝就是两个对象，旧对象还是用原来的储存空间。但是新对象就不同了，新对象<br>自己开辟了 一个新的空间，自己对自己控制，不再受原来空间的限制。</p>
+<hr>
+<p><strong>什么是内存泄漏，常见的自动内存管理机制有哪些（至少两个）他们的原理是什么？</strong><br>    内存泄漏是指无法摄放已经占用的内存空间<br>    标记清除和引用计数<br>    标记清除是通过标记的对象来确定是否清除<br>    引用计数是踪记录每个值被引用的次数。当声明了一个变量并将一个引用类型赋给该变量时，则这个值的引用次数就是1。如果同一个变量又被赋给另外一个变量，则该值的引用次数加1。相反，如果包含对着值引用的变量又取得了另一个值，则这个值的引用次数减1。</p>
+<hr>
+<p> <strong>Vue数据双向绑定的原理及其实现</strong><br>    a.vue数据双向绑定是通过数据劫持结合发布者-订阅者模式的方式来实现的<br>    实现过程:</p>
+<pre><code>1.实现一个监听器Observer，用来劫持并监听所有属性，如果有变动的，就通知订阅者。
+
+2.实现一个订阅者Watcher，可以收到属性的变化通知并执行相应的函数，从而更新视图。
+
+3.实现一个解析器Compile，可以扫描和解析每个节点的相关指令，并根据初始化模板数据以及初始化相应的订阅器。
+</code></pre>
+<hr>
+<p><strong>MVC与MVVM的理解？</strong><br>a.MVC<br>        MVC模式：指Model、View、Controller三层。</p>
+<pre><code>    视图层（View）：主要是用户界面的展示
+    控制层（Controller）：主要是处理Model层和View层的交互，对业务逻
+    模型层（Model）：主要是对数据的CRUD操作辑的处理。
+</code></pre>
+<p>b.MVVM<br>        MVVM模式：指Model、View、ViewModel三层。</p>
+<pre><code>    视图层（View）：调用ViewModel的方法并响应变化。
+    视图模型层（ViewModel）：主要做业务的调度者，分割了View层和Model层。
+    模型（Model）：数据模型
+</code></pre>
+<hr>
+
+        <h2 id="GET、POST的区别？-a-get是从服务器上获取数据，post是向服务器传送数据。-b-get传送的数据量较小，不能大于2KB。post传送的数据量较大，一般被默认为不受限制-c-get安全性非常低，post安全性较高。"   >
+          <a href="#GET、POST的区别？-a-get是从服务器上获取数据，post是向服务器传送数据。-b-get传送的数据量较小，不能大于2KB。post传送的数据量较大，一般被默认为不受限制-c-get安全性非常低，post安全性较高。" class="heading-link"><i class="fas fa-link"></i></a><a href="#GET、POST的区别？-a-get是从服务器上获取数据，post是向服务器传送数据。-b-get传送的数据量较小，不能大于2KB。post传送的数据量较大，一般被默认为不受限制-c-get安全性非常低，post安全性较高。" class="headerlink" title="GET、POST的区别？        a.get是从服务器上获取数据，post是向服务器传送数据。        b.get传送的数据量较小，不能大于2KB。post传送的数据量较大，一般被默认为不受限制        c.get安全性非常低，post安全性较高。
+        "></a><strong>GET、POST的区别？</strong><br>        a.get是从服务器上获取数据，post是向服务器传送数据。<br>        b.get传送的数据量较小，不能大于2KB。post传送的数据量较大，一般被默认为不受限制<br>        c.get安全性非常低，post安全性较高。
+        </h2>
+      <p><strong>怎样避免全局变量污染？</strong><br>        a.尽量少使用全局变量<br>        b.使用闭包<br>         ES5严格模式的作用和规定？<br>    作用：	a.消除javascript语法的一些不合理、不严谨之处，减少一些怪异行为<br>              	b.消除代码运行的一些不安全性，促进代码运行的安全<br>             	c.提高编译器效率，增加运行速度；<br>              	d.为未来新版本的javascript做好铺垫<br>    规定:	a、全局变量显示声明</p>
+<pre><code>    b、禁止对象属性重名、禁止函数参数重名
+
+    c、禁止使用with语句
+
+    d、函数预编译中this默认为undefined
+    
+</code></pre>
+<hr>
+<p><strong>ajax跨域有哪些方法？</strong><br>        方法一:XHR2<br>        方法二:服务器跨域<br>        方法三:CORS<br>        方法四:jsonp<br>    jsonp原理:用了script标签不受同源策略的限制，在页面中动态插入了script，script标签的src属性就是后端api接口的地址，并且以get的方式将前端回调处理函数名称告诉后端，后端在响应请求时会将回调返还，并且将数据以参数的形式传递回去。</p>
+<hr>
+<p><strong>Vue相对于jQuery在开发上有什么优点</strong><br>        a.Vue比JQuery减少了 DOM 操作<br>        b.组件化模式，开发效率高,方便维护<br>什么是虚拟DOM：使用js对象模拟DOM，在操作过程中不会直接操作DOM，等待虚拟DOM操作完成，仅仅比较开始和结束状态虚拟DOM有哪些变换，最终根据结束状态虚拟DOM去操作DOM。</p>
+<hr>
+<p><strong>string的方法有哪些？</strong></p>
+<p>concat()连接两个或多个字符串，并返回新的字符串<br>split()把字符串分割为字符串数组<br>substr()从起始索引号提取字符串中指定数目的字符<br>indexOf(‘ ‘)返回字符串指定字符最开始出现的位置<br>LastindexOf(‘ ‘)返回字符串指定字符最后出现的位置<br>replace()替换匹配的字符串<br>slice()提取字符串的片段，并在新的字符串中返回被提取的部分<br>toLocaleLowerCase()把字符串转换成小写<br>toLocaleUpperCase()把字符串准换成大写<br>toLowerCase()把字符串转换成小写</p>
+<hr>
+<p><strong>array的方法有哪些？</strong></p>
+<p>slice[start,end]：返回从原数组中指定开始下表到结束下表之间的项组成的新数组（原数组不变）<br>splice()：删除，2个参数，起始位置，删除的项数<br>pop()：删除数组的最后一个元素，减少数组的长度，返回被删除的值<br>push()：将参数添加到数组的最后，返回新数组的长度<br>shift()：删除数组的第一个参数，数组的长度减1，无参<br>unshift()：像数组的开头添加一个或更多的元素，并返回新的长度。（参数不限）<br>sort():按指定的参数对数组进行排序，返回的值是经过排序后的数组（无参，函数）<br>concat()：把两个字符串连接起来，返回的值是一个副本（参数不限）<br>join()：将数组的元素组成一个字符串，以separator（分割器）<br>indexOf():从数组的开头向后查找，接受两个参数，要查找的项和查找起点的位置索引<br>foeEach():对数组的每个元素执行一次提供的函数。<br>filter()创建一个新的数组，符合条加的元素并生成新的数组<br>findIndex()返回元素的位置</p>
+<hr>
+<p><strong>什么是闭包？</strong><br>1.闭包就是能够读取其他函数内部变量的函数<br>2.闭包简单理解成”定义在一个函数内部的函数”<br>3.闭包就是将函数内部和函数外部连接起来的一座桥梁<br>作用：读取函数内部的变量，让这些变量的值始终保持在内存中。<br>缺点：容易造成内存泄露</p>
+<hr>
+<p><strong>什么是promise函数？</strong></p>
+<ol>
+<li>promise是实现异步操作的方式,有三个状态，pending(进行中).fulfilled(已成功),rejected(已失败) 优点：解决回调地狱 缺点：一旦执行无法停止，报错不明显</li>
+</ol>
+<hr>
+<p><strong>什么是async&#x2F;await？</strong></p>
+<ol>
+<li>async&#x2F;await是写异步代码的新方式，promise的语法糖<br>作用:async能够将函数变成异步，await是等待异步操作执行完<br>优点：语法简洁代码直观，报错明显</li>
+</ol>
+<hr>
+<p><strong>this的指向问题？</strong><br>1.普通函数的this是由动态作用域决定，它总指向于它的直接调用者<br>2.在默认情况(非严格模式,未使用 ‘use strict’)，如果函数没有直接调用者，this为window<br>在严格模式下,如果函数没有直接调者，this为undefined<br>3.call,apply,bind绑定的，this指的是绑定的对象</p>
+<hr>
+<p><strong>Vue 路由有哪些?</strong><br>全局守卫:<br>1.router.beforeEach<br>2.vue router.afterEach<br>3.router.beforeResolve<br>组件内守卫:<br>1.beforeRouteEnter、<br>2.beforeRouteUpdate、.<br>3.beforeRouteLeave<br>路由独享的守卫<br>beforeEnter </p>
+<hr>
+<p><strong>vue computed和watch的区别是什么？</strong><br>计算属性computed :<br>1、支持缓存，只有依赖数据发生改变，才会重新进行计算<br>2、不支持异步，当computed内有异步操作时无效，无法监听数据的变<br>3、computed 属性值会默认走缓存，计算属性是基于它们的响应式依赖进行缓存的，也就是基于data中声明过或者父组件传递的props中的数据通过计算得到的值<br>4、如果一个属性是由其他属性计算而来的，这个属性依赖其他属性，是多对一或者一对一，一般用computed<br>5、如果computed属性属性值是函数，那么默认会走get方法；函数的返回值就是属性的属性值；在computed中的，属性都有一个get和一个set方法，当数据变化时，调用set方法。</p>
+<p>侦听属性watch：<br>1、不支持缓存，数据变，直接会触发相应的操作；<br>2、watch支持异步；<br>3、监听的函数接收两个参数，第一个参数是最新的值；第二个参数是输入之前的值；<br>4、当一个属性发生变化时，需要执行对应的操作；一对多；<br>5、监听数据必须是data中声明过或者父组件传递过来的props中的数据，当数据变化时，触发其他操作，函数有两个参数，<br>                immediate：组件加载立即触发回调函数执行，<br>                deep: 深度监听，为了发现对象内部值的变化，复杂类型的数据时使用，例如数组中的对象内容的改变，注意监听数组的变动不需要这么做。注意：deep无法监听到数组的变动和对象的新增，参考vue数组变异,只有以响应式的方式触发才会被监听到。</p>
+<hr>
+<p><strong>HTTP请求的五个步骤？</strong><br>1.创建XML httprequest 异步对象<br>2.创建HTTP请求方式<br>3.响应请求<br>4.发送请求<br>5.获取异步调用返回的数据</p>
+<hr>
+<p><strong>HTTP请求的事务过程？</strong><br>1.域名解析<br>2.发起TCP三次握手<br>3.建立TCP链接后发起http请求<br>4.服务器响应http后发起请求，浏览器得到html的代码<br>5.浏览器解析HTML代码，并得到HTML代码中的资源<br>6.浏览器对页面进行渲染呈现给用户<br>7.连接结束</p>
+<hr>
+<p><strong>es6中map和foreach的区别？</strong><br>相同点：<br>1.都是循环遍历数组中的每一项<br>2.有三个参数，参数分别为item，index，arr<br>3.匿名函数中的this都指向window<br>4.只能遍历数组<br>不同点：<br>1.map(）会分配内存空间存储新数组并返回，foreach()不会返回新数组<br>2.forEach()允许callback更改原始数组的元素。map()返回新的数组。</p>
+<hr>
+<p><strong>什么是事件循环机制？</strong><br>js是一门单线程语言，任务进入执行栈会分为同步任务或异步任务，同步任务会优先在主线程中执行，异步任务会进入到事件队列等待主线程执行完再推到主线程执行，异步队列又分为宏任务和微任务，微任务的执行优先于宏任务，这整个过程称为一个事件循环<br>宏任务：setTimeout, setInterval, setImmediate, I&#x2F;O, UI rendering<br>微任务：process.nextTick, promise.then, MutationObserver<br>在这里插入图片描述<br><img   src="https://img-blog.csdnimg.cn/2021070609295446.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDgwODY2OA==,size_16,color_FFFFFF,t_70" style="width: image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,tepx;height: t_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDgwODY2OApx;"  alt="在这里插入图片描述"><br><img   src="https://img-blog.csdnimg.cn/2021070609295859.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDgwODY2OA==,size_16,color_FFFFFF,t_70" style="width: image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,tepx;height: t_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDgwODY2OApx;"  alt="在这里插入图片描述"></p>
+<hr>
+<p><strong>浏览器中400，401,403,404分别代表什么意思？</strong><br>400：请求参数错误<br>401：未登录，请授权<br>403：跨域拒绝访问<br>404：请求地址错误</p>
+<hr>
+<p><strong>vue2 和 vue3 数据绑定的区别？</strong></p>
+<p>vue2主要利用es5的object.defineProperty()对数据进行劫持结合发布订阅模式来实现的<br>vue3只要利用es6 Proxy api对数据进行代理</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">相比于vue2.x，使用proxy的优势如下</span><br><span class="line"></span><br><span class="line">defineProperty只能监听某个属性，不能对全对象监听</span><br><span class="line">可以省去<span class="keyword">for</span> <span class="keyword">in</span>、闭包等内容来提升效率（直接绑定整个对象即可）</span><br><span class="line">可以监听数组，不用再去单独的对数组做特异性操作 vue3.x可以检测到数组内部数据的变化</span><br></pre></td></tr></table></div></figure>
+<hr>
+<p><strong>什么是原型？</strong></p>
+<p>①所有引用类型都有一个__proto__(隐式原型)属性，属性值是一个普通的对象<br>②所有函数都有一个prototype(原型)属性，属性值是一个普通的对象<br>③所有引用类型的__proto__属性指向它构造函数的prototype</p>
+<hr>
+<p><strong>什么是原型链？</strong></p>
+<p>当访问一个对象的某个属性时，会先在这个对象本身属性上查找，如果没有找到，则会去它的__proto__隐式原型上查找，即它的构造函数的prototype，如果还没有找到就会再在构造函数的prototype的__proto__中查找，这样一层一层向上查找就会形成一个链式结构，我们称为原型链。</p>
+<hr>
+<p><strong>箭头函数与普通函数区别？</strong><br>1.箭头函数是匿名函数，不能作为构造函数，不能使用new<br>2.箭头函数不绑定this，会捕获其所在的上下文的this值，作为自己的this值<br>3.箭头函数通过 call()  或   apply() 方法调用一个函数时，只传入了一个参数，对 this 并没有影响。<br>4.箭头函数没有原型属性</p>
+<hr>
+<p><strong>如何提高webpack打包速度？</strong><br>1.利用happyPack并行编译loder<br>2.利用dllPlugin先将基本不会改动的代码打包成静态资源<br>3.利用缓存，将cache.Directory设置为true</p>
+<hr>
+<p><strong>如何利用webpack提高前端性能</strong><br>1.压缩代码，将多余或者注释的代码删除<br>2.利用CDN加速，将静态路径修改为对应cdn 的路径<br>3.利用treeshaking，将永远不会运行到的代码片段删除掉</p>
+<hr>
+<p><strong>vue双向绑定的原理？</strong><br>vue.js采用数据劫持结合订阅和发布的方式，通过object.defineproperty劫持各个属性的set方法和get方法，在数据变动时发布消息给订阅者。触发响应的监听回调<br>注意：object.defineproperty的缺点主要是不能直接修改对象或者数组，不能触发组件的重新渲染，而vue3使用proxy代理完美监听任何形式的数据，缺点是兼容性问题</p>
+<hr>
+<p><strong>说说对keep-alive的理解?</strong><br>作用在组件切换的时候，保存组件状态防止多次渲染,keep-alive的实现主要通过cache数组缓存所有vnode的实例</p>
+<hr>
+<p><strong>$nextTick的原理和作用</strong><br>原理：当执行一个任务时，将任务放到异步队列中，模拟宏任务和微任务，清除异步队列中的方法<br>作用：当数据变化后执行某个操作，这个操作需要数据随着dom结构变化而变化的时候</p>
+<hr>
+<p><strong>v-show和v-if的区别</strong></p>
+<p>1.v-show是通过设置DOM元素的display样式属性控制显隐；v-if是动态的向DOM树内添加或者删除DOM元素；<br>2.v-show只是简单的基于css切换；v-if切换有一个局部编译&#x2F;卸载的过程，切换过程中合适地销毁和重建内部的事件监听和子组件；<br>3.v-show适合频繁切换；v-if切换频率低的<br>4.v-show性能消耗低，v-if性能消耗大<br>————————————————<br>版权声明：本文为CSDN博主「嚣张农民」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_40808668/article/details/109091092" >https://blog.csdn.net/weixin_40808668/article/details/109091092</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://lin-xiuer.gitee.io">前端嚣张农民</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://lin-xiuer.gitee.io/2022/12/16/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E8%BF%9B%E9%98%B6/">https://lin-xiuer.gitee.io/2022/12/16/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E8%BF%9B%E9%98%B6/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.zh-cn" rel="external nofollow" target="_blank">BY-NC</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://lin-xiuer.gitee.io/tags/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/">前端面试</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://lin-xiuer.gitee.io/tags/%E5%85%AB%E8%82%A1%E6%96%87/">八股文</a></span></div><div class="post-reward reward"><div class="reward-button">请我喝杯咖啡~</div><div class="reward-qrcode"><span class="reward-qrcode-alipay"><img class="reward-qrcode-alipay__img" src="/images/zfbpay.png"><div class="reward-qrcode-alipay__text">支付宝打赏</div></span><span class="reward-qrcode-wechat"><img class="reward-qrcode-wechat__img" src="/images/vxpay.png"><div class="reward-qrcode-wechat__text">微信打赏</div></span></div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2022/12/16/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">前端基础面试题</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2022/12/16/%E9%AB%98%E9%A2%91%E9%9D%A2%E8%AF%95%E4%B9%8B%E3%80%8A%E9%87%8D%E7%BB%98%E5%92%8C%E5%9B%9E%E6%B5%81%E3%80%8B/"><span class="paginator-prev__text">高频面试之《重绘和回流》</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#GET%E3%80%81POST%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F-a-get%E6%98%AF%E4%BB%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%EF%BC%8Cpost%E6%98%AF%E5%90%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BC%A0%E9%80%81%E6%95%B0%E6%8D%AE%E3%80%82-b-get%E4%BC%A0%E9%80%81%E7%9A%84%E6%95%B0%E6%8D%AE%E9%87%8F%E8%BE%83%E5%B0%8F%EF%BC%8C%E4%B8%8D%E8%83%BD%E5%A4%A7%E4%BA%8E2KB%E3%80%82post%E4%BC%A0%E9%80%81%E7%9A%84%E6%95%B0%E6%8D%AE%E9%87%8F%E8%BE%83%E5%A4%A7%EF%BC%8C%E4%B8%80%E8%88%AC%E8%A2%AB%E9%BB%98%E8%AE%A4%E4%B8%BA%E4%B8%8D%E5%8F%97%E9%99%90%E5%88%B6-c-get%E5%AE%89%E5%85%A8%E6%80%A7%E9%9D%9E%E5%B8%B8%E4%BD%8E%EF%BC%8Cpost%E5%AE%89%E5%85%A8%E6%80%A7%E8%BE%83%E9%AB%98%E3%80%82"><span class="toc-number">1.</span> <span class="toc-text">
+          GET、POST的区别？        a.get是从服务器上获取数据，post是向服务器传送数据。        b.get传送的数据量较小，不能大于2KB。post传送的数据量较大，一般被默认为不受限制        c.get安全性非常低，post安全性较高。
+        </span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/logo@2x.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">公众号：前端嚣张农民</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/linweiqian" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/weixin_40808668?spm=1000.2115.3001.5343" target="_blank" rel="noopener" data-popover="CSDN" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">C</span></a><a class="sidebar-ov-social-item" href="https://juejin.cn/user/3131035352311646" target="_blank" rel="noopener" data-popover="掘金" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">掘</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/rrskeo" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">32</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">13</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">15</div><div class="sidebar-ov-state-item__name">标签</div></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>前端嚣张农民</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="0,0,0" opacity="0.6" count="99" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="/js/utils.js?v=2.8.0"></script><script src="/js/stun-boot.js?v=2.8.0"></script><script src="/js/scroll.js?v=2.8.0"></script><script src="/js/header.js?v=2.8.0"></script><script src="/js/sidebar.js?v=2.8.0"></script><script type="application/json" src="/search.json"></script></body></html>
