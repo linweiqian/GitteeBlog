@@ -39,7 +39,7 @@
 语言: [English](https://github.com/liuyib/hexo-theme-stun/blob/master/README_en-US.md) | [中文简体](https://github.com/liuyib/hexo-theme-stun/blob/master/README.md)
 
 ## :sparkles: 演示
-- [前端嚣张农民 Blog](http://lin-xiuer.gitee.io/linxiuxiu)
+- [前端嚣张农民 Blog](http://lin-xiuer.gitee.io/)
 - [Liuyib's Blog](https://liuyib.github.io/)
 - [Cheeks's Blog](https://www.cheeks.top/)
 - [lingan1996's Blog](https://www.lingan1996.top)
